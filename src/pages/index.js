@@ -1,4 +1,5 @@
-import Head from "next/head";
+import Header from "@/componenrs/Header"
+import Head from "next/head"
 
 export default function Home() {
   return (
@@ -7,7 +8,8 @@ export default function Home() {
         <title>Amazon 2.0</title>
       </Head>
 
-  <h1>hey papa fan</h1>
+      {/* HEADER */}
+      <Header />
     </div>
-  );
+  )
 }
