@@ -10,7 +10,7 @@ import {
 
 function Header() {
   return (
-    <header>
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center bg-navBg p-2 flex-grow py-2">
         <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
           <Image src={img} width={30} hieght={30} className="cursor-pointer " />
@@ -21,7 +21,6 @@ function Header() {
             className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4"
             type="text"
           />
-          {/* <SearchIcon className="h-12" /> */}
 
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +61,7 @@ function Header() {
       </div>
       {/* Bottom nav */}
 
-      <div className=" flex items-center bg-nav2Bg text-white space-x-3 p-2 pl-6">
+      {/* <div className=" flex items-center bg-nav2Bg text-white space-x-3 p-2 pl-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 p-1"
@@ -87,7 +86,7 @@ function Header() {
         <p className="Link hidden lg:inline-flex">Check- In</p>
         <p className="Link hidden lg:inline-flex">Check- In</p>
         <p className="Link hidden lg:inline-flex">Check- In</p>
-      </div>
+      </div> */}
     </header>
   )
 }
