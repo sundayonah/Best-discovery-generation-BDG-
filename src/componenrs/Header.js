@@ -5,7 +5,7 @@ import {
   ShoppingCartIcon,
   SearchIcon,
   BeakerIcon,
-} from "@heroicons/react/24/outline"
+} from "@heroicons/react/outline"
 // import { BeakerIcon, Search } from "@heroicons/react/24/outline"
 
 function Header() {
@@ -13,7 +13,7 @@ function Header() {
     <header>
       <div className="flex items-center bg-navBg p-2 flex-grow py-2">
         <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
-          <Image src={img} width={30} hieght={30} className="cursor-pointer" />
+          <img src={img} width={30} hieght={30} className="cursor-pointer" />
         </div>
         {/* Search */}
         <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500">
