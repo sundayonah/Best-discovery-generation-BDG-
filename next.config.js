@@ -1,8 +1,4 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {}
 
-module.exports = {
-  images: {
-    domain: ["links.papareact.com", "fakestoreapi.com"],
-  },
-};
+module.exports = nextConfig
