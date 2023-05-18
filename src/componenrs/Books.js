@@ -24,7 +24,12 @@ function Books({ id, title, price, description, category, image }) {
         {category}
       </p>
 
-      <Image src={image} height={200} width={200} objectFit="contain" />
+      <Image
+        src={image}
+        height={150}
+        width={150}
+        className="m-auto object-contain"
+      />
       <h4 className="my-3">{title}</h4>
 
       <div className="flex">
