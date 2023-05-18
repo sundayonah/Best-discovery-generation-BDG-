@@ -6,6 +6,7 @@ import {
   SearchIcon,
   BeakerIcon,
 } from "@heroicons/react/outline"
+import { signIn, signOut, useSession } from "next-auth/react"
 // import { BeakerIcon, Search } from "@heroicons/react/24/outline"
 
 function Header() {
@@ -40,7 +41,7 @@ function Header() {
         {/* RIGHT */}
 
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-normal">
-          <div className="Link">
+          <div onClick={signIn} className="Link ">
             <p>hello, Onah</p>
             <p className="font-extrabold md:text-sm">Account & List</p>
           </div>
