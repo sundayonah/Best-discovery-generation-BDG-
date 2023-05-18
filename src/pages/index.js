@@ -1,12 +1,13 @@
 import Banner from "@/componenrs/Banner"
 import Header from "@/componenrs/Header"
 import Head from "next/head"
+import BooksFeed from "@/componenrs/BooksFeed"
 
-export default function Home() {
+export default function Home({ books }) {
   return (
-    <div>
+    <div className="bg-gray-200">
       <Head>
-        <title>Amazon 2.0</title>
+        <title>E-ccomerce</title>
       </Head>
 
       {/* HEADER */}
@@ -16,7 +17,22 @@ export default function Home() {
         {/* Banner */}
         <Banner />
         {/* ProductsFeed */}
+        <BooksFeed books={books} />
       </main>
     </div>
   )
 }
+
+export async function getServerSideProps(content) {
+  const books = await fetch("https://fakestoreapi.com/products").then((res) =>
+    res.json()
+  )
+  // .then((json) => console.log(json))
+  return {
+    props: {
+      books,
+    },
+  }
+}
+
+// Get >>> https://fakestoreapi.com/products
