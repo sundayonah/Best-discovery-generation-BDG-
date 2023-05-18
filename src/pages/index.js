@@ -5,7 +5,7 @@ import BooksFeed from "@/componenrs/BooksFeed"
 
 export default function Home({ books }) {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 ">
       <Head>
         <title>E-ccomerce</title>
       </Head>
@@ -28,6 +28,7 @@ export async function getServerSideProps(content) {
     res.json()
   )
   // .then((json) => console.log(json))
+  // console.log(books)
   return {
     props: {
       books,

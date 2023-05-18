@@ -3,8 +3,7 @@ import Books from "./Books"
 function BooksFeed({ books }) {
   // console.log(books)
   return (
-    <div>
-      <h1>Books here''''''</h1>
+    <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {books.map(({ id, title, price, description, category, image }) => (
         <Books
           key={id}
