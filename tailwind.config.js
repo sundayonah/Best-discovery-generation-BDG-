@@ -15,6 +15,7 @@ module.exports = {
       },
       colors: {
         navBg: "#0d1117",
+        nav2Bg: "#161b22",
       },
     },
   },

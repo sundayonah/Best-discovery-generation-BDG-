@@ -43,20 +43,51 @@ function Header() {
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-normal">
           <div className="Link">
             <p>hello, Onah</p>
-            <p>Account & List</p>
+            <p className="font-extrabold md:text-sm">Account & List</p>
           </div>
           <div className="Link">
             <p>Returns</p>
-            <p>& Orders</p>
+            <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className="Link">
-            <ShoppingCartIcon className="h-5" />
-            <p>Basket </p>
+          <div className=" relative Link flex items-center">
+            <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">
+              0
+            </span>
+            <ShoppingCartIcon className="h-8" />
+            <p className=" hidden md:inline font-extrabold md:text-sm mt-2">
+              Basket
+            </p>
           </div>
         </div>
       </div>
       {/* Bottom nav */}
-      <div></div>
+
+      <div className=" flex items-center bg-nav2Bg text-white space-x-3 p-2 pl-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 p-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+        <p className="Link flex items-center">All</p>
+        <p className="Link">Books</p>
+        <p className="Link">Recent</p>
+        <p className="Link">Check- In</p>
+        <p className="Link hidden lg:inline-flex">Check- In</p>
+        <p className="Link hidden lg:inline-flex">Check- In</p>
+        <p className="Link hidden lg:inline-flex">Check- In</p>
+        <p className="Link hidden lg:inline-flex">Check- In</p>
+        <p className="Link hidden lg:inline-flex">Check- In</p>
+        <p className="Link hidden lg:inline-flex">Check- In</p>
+      </div>
     </header>
   )
 }
