@@ -1,7 +1,7 @@
 import { addToBasket, removeFromBasket } from "@/slices/basketSlice"
 import { StarIcon } from "@heroicons/react/solid"
 import Image from "next/image"
-import Currency from "react-currency-formatter"
+// import {Currency} from "react-currency-formatter"
 import { useDispatch } from "react-redux"
 
 function CheckoutBook({
@@ -57,7 +57,7 @@ function CheckoutBook({
           </span>
         </p>
         <div className="mb-5">
-          <Currency quantity={price} currency="NGN" />
+          {/* <Currency quantity={price} currency="NGN" /> */}${price}
         </div>
       </div>
       <div className="flex flex-col space-y-2 my-auto justify-items-end">
