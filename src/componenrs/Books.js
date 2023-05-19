@@ -1,12 +1,16 @@
+import { addToBasket } from "@/slices/basketSlice"
 import { StarIcon } from "@heroicons/react/solid"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import Currency from "react-currency-formatter"
+import { useDispatch } from "react-redux"
 
 const MAX_RATING = 5
 const MIN_RATING = 1
 
 function Books({ id, title, price, description, category, image }) {
+  const dispatch = useDispatch()
+
   const [rating, setRating] = useState(0)
 
   const [hasPrime, setHasPrime] = useState(true)
@@ -17,6 +21,19 @@ function Books({ id, title, price, description, category, image }) {
     )
     setHasPrime(Math.random() < 0.5)
   }, [])
+
+  const addItemToBasket = () => {
+    const book = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+    }
+    //sending the bok as an action to redux store
+    dispatch(addToBasket(book))
+  }
 
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10 rounded">
@@ -65,7 +82,9 @@ function Books({ id, title, price, description, category, image }) {
         </div>
       )} */}
 
-      <button className="mt-auto button">Add to Basket</button>
+      <button onClick={addItemToBasket} className="mt-auto button">
+        Add to Basket
+      </button>
     </div>
   )
 }
