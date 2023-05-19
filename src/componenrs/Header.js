@@ -18,7 +18,7 @@ function Header() {
 
   const items = useSelector(selectItems)
 
-  console.log(items)
+  // console.log(items)
 
   // console.log(session.user.name)
   // console.log(session.user)

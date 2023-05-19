@@ -1,8 +1,12 @@
 import Header from "@/componenrs/Header"
 import Image from "next/image"
 import checkOutBanner from "../images/book6.jpg"
+import { useSelector } from "react-redux"
+import { selectItems } from "@/slices/basketSlice"
+import CheckoutBook from "@/componenrs/CheckoutBook"
 
 function Checkout() {
+  const items = useSelector(selectItems)
   return (
     <div className="bg-gray-100 my-12">
       <Header />
@@ -16,7 +20,22 @@ function Checkout() {
             objectFit="contain"
           />
           <div className="flex flex-col p-5 space-y-10 bg-white">
-            <h1 className="text-3xl border-b pb-4">Your Shopping Basket</h1>
+            <h1 className="text-3xl border-b pb-4">
+              {items.length == 0
+                ? "Your Basket is empty"
+                : "Your Shopping Basket"}
+            </h1>
+            {items.map(({ id, title, price, description, category, image }) => (
+              <CheckoutBook
+                key={id}
+                id={id}
+                title={title}
+                price={price}
+                description={description}
+                category={category}
+                image={image}
+              />
+            ))}
           </div>
         </div>
 
