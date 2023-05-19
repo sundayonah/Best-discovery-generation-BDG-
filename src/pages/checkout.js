@@ -4,9 +4,13 @@ import checkOutBanner from "../images/book6.jpg"
 import { useSelector } from "react-redux"
 import { selectItems } from "@/slices/basketSlice"
 import CheckoutBook from "@/componenrs/CheckoutBook"
+import Currency from "react-currency-formatter"
+import { useSession } from "next-auth/react"
 
 function Checkout() {
   const items = useSelector(selectItems)
+  const session = useSession()
+
   return (
     <div className="bg-gray-100 my-12">
       <Header />
@@ -25,23 +29,38 @@ function Checkout() {
                 ? "Your Basket is empty"
                 : "Your Shopping Basket"}
             </h1>
-            {items.map(({ id, title, price, description, category, image }) => (
-              <CheckoutBook
-                key={id}
-                id={id}
-                title={title}
-                price={price}
-                description={description}
-                category={category}
-                image={image}
-              />
-            ))}
+            {items.map(
+              ({ id, title, price, description, category, image, rating }) => (
+                <CheckoutBook
+                  key={id}
+                  id={id}
+                  title={title}
+                  price={price}
+                  description={description}
+                  category={category}
+                  image={image}
+                  rating={rating}
+                />
+              )
+            )}
           </div>
         </div>
 
         {/* Right */}
         <div>
-          <h1>Right</h1>
+          {items.length > 0 && (
+            <>
+              <h2 className="whitespace-nowrap">
+                Subtotal ({items.length} items:)
+                <span className="font-bold">
+                  {/* <Currency quantity={total} currency="NGN" /> */}
+                </span>
+              </h2>
+              <button>
+                {!session ? "Sign in to checkout" : "Proceed to Checkout"}
+              </button>
+            </>
+          )}
         </div>
       </main>
     </div>
