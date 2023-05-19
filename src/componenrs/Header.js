@@ -7,10 +7,12 @@ import {
   BeakerIcon,
 } from "@heroicons/react/outline"
 import { signIn, signOut, useSession } from "next-auth/react"
+import { useRouter } from "next/router"
 // import { BeakerIcon, Search } from "@heroicons/react/24/outline"
 
 function Header() {
   const { data: session } = useSession()
+  const router = useRouter()
 
   // console.log(session.user.name)
   // console.log(session.user)
@@ -19,7 +21,13 @@ function Header() {
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center bg-navBg p-2 flex-grow py-2">
         <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
-          <Image src={img} width={30} hieght={30} className="cursor-pointer " />
+          <Image
+            onClick={() => router.push("/")}
+            src={img}
+            width={30}
+            hieght={30}
+            className="cursor-pointer "
+          />
         </div>
         {/* Search */}
         <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500">
@@ -56,7 +64,10 @@ function Header() {
             <p>Returns</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className=" relative Link flex items-center">
+          <div
+            onClick={() => router.push("/checkout")}
+            className=" relative Link flex items-center"
+          >
             <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">
               0
             </span>
