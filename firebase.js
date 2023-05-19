@@ -1,11 +1,12 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import * as firebase from "firebase/app"
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDDKrftKLbIMQMa8SiJo1nZeM2MrivPfME",
-  authDomain: "e-ccomerce-books-project.firebaseapp.com",
-  projectId: "e-ccomerce-books-project",
-  storageBucket: "e-ccomerce-books-project.appspot.com",
-  messagingSenderId: "206967762756",
-  appId: "1:206967762756:web:c295a1690c713cc6237111",
-  measurementId: "G-C5V4LMTSZX",
+  apiKey: "AIzaSyB72Zr-va74t_8a_upAO1e75AfARYvGTfI",
+  authDomain: "e-ccomerce-books.firebaseapp.com",
+  projectId: "e-ccomerce-books",
+  storageBucket: "e-ccomerce-books.appspot.com",
+  messagingSenderId: "932582956166",
+  appId: "1:932582956166:web:397fc27dd138be0d594507",
+  measurementId: "G-WJ4PF9K0KM",
 }

@@ -10,6 +10,11 @@ import { signIn, signOut, useSession } from "next-auth/react"
 // import { BeakerIcon, Search } from "@heroicons/react/24/outline"
 
 function Header() {
+  const { data: session } = useSession()
+
+  // console.log(session.user.name)
+  // console.log(session.user)
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center bg-navBg p-2 flex-grow py-2">
@@ -41,8 +46,10 @@ function Header() {
         {/* RIGHT */}
 
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-normal">
-          <div onClick={signIn} className="Link ">
-            <p>hello, Onah</p>
+          <div onClick={!session ? signIn : signOut} className="Link ">
+            <p className="hover:underline">
+              {session ? `Hello, ${session.user.name}` : "Sign In"}
+            </p>
             <p className="font-extrabold md:text-sm">Account & List</p>
           </div>
           <div className="Link">
