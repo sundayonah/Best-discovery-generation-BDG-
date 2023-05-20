@@ -4,7 +4,7 @@ import checkOutBanner from "../images/book6.jpg"
 import { useSelector } from "react-redux"
 import { selectItems, selectTotal } from "@/slices/basketSlice"
 import CheckoutBook from "@/componenrs/CheckoutBook"
-// import {Currency} from "react-currency-formatter"
+import Currency from "react-currency-formatter"
 import { useSession } from "next-auth/react"
 
 function Checkout() {
@@ -54,7 +54,7 @@ function Checkout() {
               <h2 className="whitespace-nowrap">
                 Subtotal ({items.length} items:){" "}
                 <span className="font-bold">
-                  {/* <Currency quantity={total} currency="NGN" /> */}# {total}
+                  <Currency quantity={total} currency="NGN" />
                 </span>
               </h2>
               <button

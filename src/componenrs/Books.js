@@ -2,7 +2,7 @@ import { addToBasket } from "@/slices/basketSlice"
 import { StarIcon } from "@heroicons/react/solid"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-// import {Currency} from "react-currency-formatter"
+import Currency from "react-currency-formatter"
 import { useDispatch } from "react-redux"
 
 const MAX_RATING = 5
@@ -69,7 +69,7 @@ function Books({ id, title, price, description, category, image }) {
       </p>
 
       <div className="mb-5">
-        {/* <Currency quantity={price} currency="NGN" /> */}#{price}
+        <Currency quantity={price} currency="NGN" />
       </div>
       {/* {hasPrime && (
         <div className="flex items-center space-x-2 -mt-5">
