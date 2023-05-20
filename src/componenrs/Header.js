@@ -32,7 +32,9 @@ function Header() {
             src={img}
             width={30}
             hieght={30}
+            alt="logoimg"
             className="cursor-pointer "
+            objectfit="contain"
           />
         </div>
         {/* Search */}
