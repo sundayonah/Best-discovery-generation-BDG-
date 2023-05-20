@@ -35,7 +35,7 @@ function CheckoutBook({
   }
   return (
     <div className="grid grid-cols-5">
-      <img src={image} hieght={100} width={100} objectFit="contain" />
+      <img src={image} width={200} hieght={200} objectFit="contain" />
 
       {/* middle section */}
 

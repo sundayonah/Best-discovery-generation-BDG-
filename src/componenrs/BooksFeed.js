@@ -1,6 +1,5 @@
 import Books from "./Books"
 import imgBanner from "../images/book6.jpg"
-import Image from "next/image"
 
 function BooksFeed({ books }) {
   // console.log(books)
@@ -19,7 +18,7 @@ function BooksFeed({ books }) {
             image={image}
           />
         ))}
-      {/* <Image className="md:col-span-full" src={imgBanner} alt="banner" /> */}
+      {/* <Image className="md:col-span-full" src={imgBanner} hieght={200} width={200} alt="banner" /> */}
     </div>
   )
 }

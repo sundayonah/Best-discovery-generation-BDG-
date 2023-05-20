@@ -13,7 +13,7 @@ export default function Home({ books }) {
       {/* HEADER */}
       <Header />
 
-      <main className="max-w-screen-2xl mx-auto my-12">
+      <main className="max-w-screen-2xl mx-auto ">
         {/* Banner */}
         <Banner />
         {/* ProductsFeed */}

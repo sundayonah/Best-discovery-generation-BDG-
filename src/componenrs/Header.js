@@ -24,7 +24,7 @@ function Header() {
   // console.log(session.user)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="sticky top-0 z-50">
       <div className="flex items-center bg-navBg p-2 flex-grow py-2">
         <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
           <Image
