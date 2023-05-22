@@ -9,8 +9,9 @@ import axios from "axios"
 import Image from "next/image"
 
 import { loadStripe } from "@stripe/stripe-js"
-const stripePromise = loadStripe(process.env.stripe_public_key)
+// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
+const stripePromise = loadStripe(process.env.stripe_public_key)
 function Checkout() {
   const items = useSelector(selectItems)
   const { data: session } = useSession()
@@ -20,19 +21,18 @@ function Checkout() {
     const stripe = await stripePromise
 
     //call the backend ro create a checkout session...
-
-    const checkoutSession = await axios.post("/api/create-checkout-session", {
+    const checkoutSession = await axios.post("api/create-checkout-session", {
       items: items,
       email: session.user.email,
     })
+    console.log(checkoutSession)
 
     //Redirect user/customer to Stripe Checkout
-    const result = await stripe.redirectToCheckout({
+    const result = await stripe?.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     })
-    // console.log(result)
 
-    if (result.error) alert(result.error.message)
+    if (result?.error) alert(result.error.message)
   }
 
   return (
