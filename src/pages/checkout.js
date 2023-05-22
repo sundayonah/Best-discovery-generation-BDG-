@@ -17,6 +17,8 @@ function Checkout() {
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
 
+   //checkout.js
+   //connect this to checkout button
    const createCheckoutSession = async () => {
       const stripe = await stripePromise
 
