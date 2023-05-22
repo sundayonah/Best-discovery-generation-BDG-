@@ -25,7 +25,7 @@ const fulfillOrder = async (session) => {
       .doc(session.id)
       .set({
          amount: session.amount_total / 100,
-         //  amount_shipping: session.total_details.amount_shipping / 100,
+         amount_shipping: session.total_details.amount_shipping / 100,
          images: JSON.parse(session.metadata.images),
          timestamp: admin.firestore.FieldValue.serverTimestamp(),
       })
@@ -57,7 +57,9 @@ export default async (req, res) => {
          //Fullfil the order...
          return fulfillOrder(session)
             .then(() => res.status(200))
-            .catch((err) => res.status(400).send(`Webhook Error ${err.mesage}`))
+            .catch((err) =>
+               res.status(400).send(`Webhook Error ${err.message}`)
+            )
       }
    }
 }
@@ -65,6 +67,6 @@ export default async (req, res) => {
 export const config = {
    api: {
       bodyParser: false,
-      externalResolver: true
+      externalResolver: true,
    },
 }
