@@ -2,12 +2,12 @@ import Header from "@/componenrs/Header"
 import { getSession, useSession } from "next-auth/react"
 import db from "../../firebase"
 import moment from "moment"
+import Order from "@/componenrs/Order"
 
 function Orders({ orders }) {
    const { data: session } = useSession()
 
    console.log(orders)
-
    return (
       <div>
          <Header />
@@ -17,15 +17,25 @@ function Orders({ orders }) {
             </h1>
 
             {session ? (
-               <h2>X Orders</h2>
+               <h2>{orders.length} Orders</h2>
             ) : (
                <h2>Please sign in to see your orders</h2>
             )}
 
             <div className="mt-5 space-y-4">
-               {orders?.map(order =>(
-                  <Order />
-               ))}
+               {orders?.map(
+                  (id, amount, amountShipping, items, timestamp, images) => (
+                     <Order
+                        key={id}
+                        id={id}
+                        amount={amount}
+                        amountShipping={amountShipping}
+                        items={items}
+                        timestamp={timestamp}
+                        images={images}
+                     />
+                  )
+               )}
             </div>
          </main>
       </div>
