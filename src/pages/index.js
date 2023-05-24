@@ -2,6 +2,7 @@ import Banner from "@/componenrs/Banner"
 import Header from "@/componenrs/Header"
 import Head from "next/head"
 import BooksFeed from "@/componenrs/BooksFeed"
+import { getSession } from "next-auth/react"
 
 export default function Home({ books }) {
    return (
@@ -24,6 +25,7 @@ export default function Home({ books }) {
 }
 
 export async function getServerSideProps(content) {
+   const session = await getSession(content)
    const books = await fetch("https://fakestoreapi.com/products").then((res) =>
       res.json()
    )
@@ -32,6 +34,7 @@ export async function getServerSideProps(content) {
    return {
       props: {
          books,
+         session,
       },
    }
 }

@@ -1,17 +1,16 @@
-import Header from "@/componenrs/Header"
 import { getSession, useSession } from "next-auth/react"
 import db from "../../firebase"
 import moment from "moment"
 import Order from "@/componenrs/Order"
+import Header from "@/componenrs/Header"
 
 function Orders({ orders }) {
    const { data: session } = useSession()
 
-   console.log(orders)
    return (
       <div>
          <Header />
-         <main className="max-w-screen-lg mx auto p-10">
+         <main className="max-w-screen-lg mx-auto p-10">
             <h1 className="text-3xl border-b mb-2 pb-1 border-yellow-400">
                Your Orders
             </h1>
@@ -23,60 +22,61 @@ function Orders({ orders }) {
             )}
 
             <div className="mt-5 space-y-4">
-               {orders?.map(
-                  (id, amount, amountShipping, items, timestamp, images) => (
-                     <Order
-                        key={id}
-                        id={id}
-                        amount={amount}
-                        amountShipping={amountShipping}
-                        items={items}
-                        timestamp={timestamp}
-                        images={images}
-                     />
-                  )
-               )}
+               {orders?.map((order) => (
+                  <Order
+                     key={order.id}
+                     id={order.id}
+                     amount={order.amount}
+                     amountShipping={order.amountShipping}
+                     items={order.items}
+                     timestamp={order.timestamp}
+                     images={order.images}
+                  />
+               ))}
             </div>
          </main>
       </div>
    )
 }
-export default Orders
 
 export async function getServerSideProps(context) {
    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
-   //Get the users logged in credentials...
+   // Get the user's logged-in credentials
    const session = await getSession(context)
 
    if (!session) {
       return {
-         prpos: {},
+         props: {
+            orders: [],
+         },
       }
    }
 
-   //firebase db
-   const stripeOrders = await db
+   // Retrieve orders from Firebase DB
+   const firebaseOrders = await db
       .collection("users")
       .doc(session.user.email)
       .collection("orders")
       .orderBy("timestamp", "desc")
       .get()
 
-   //stripe orders
+   // Process orders
    const orders = await Promise.all(
-      stripeOrders.docs.map(async (order) => ({
-         id: order.id,
-         amount: order.data().amount,
-         amountShipping: order.data().amount_shipping,
-         images: order.data().images,
-         timestamp: moment(order.data().timestamp.toDate()).unix(),
-         items: (
-            await stripe.checkout.sessions.listLineItems(order.id, {
-               limit: 100,
-            })
-         ).data,
-      }))
+      firebaseOrders.docs.map(async (order) => {
+         const stripeOrder = await stripe.checkout.sessions.retrieve(order.id, {
+            expand: ["line_items"],
+         })
+
+         return {
+            id: order.id,
+            amount: stripeOrder.amount_total,
+            amountShipping: stripeOrder.total_details.amount_shipping,
+            images: JSON.parse(stripeOrder.metadata.images),
+            timestamp: moment(stripeOrder.created * 1000).unix(),
+            items: stripeOrder.line_items.data,
+         }
+      })
    )
 
    return {
@@ -85,3 +85,5 @@ export async function getServerSideProps(context) {
       },
    }
 }
+
+export default Orders
