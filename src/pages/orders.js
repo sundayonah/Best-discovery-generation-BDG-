@@ -7,6 +7,8 @@ import Header from "@/componenrs/Header"
 function Orders({ orders }) {
    const { data: session } = useSession()
 
+   // console.log(orders)
+
    return (
       <div>
          <Header />
@@ -67,6 +69,7 @@ export async function getServerSideProps(context) {
          const stripeOrder = await stripe.checkout.sessions.retrieve(order.id, {
             expand: ["line_items"],
          })
+         // console.log(stripe)
 
          return {
             id: order.id,
