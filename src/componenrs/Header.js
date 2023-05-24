@@ -12,6 +12,12 @@ import { useSelector } from "react-redux"
 import { selectItems } from "@/slices/basketSlice"
 // import { BeakerIcon, Search } from "@heroicons/react/24/outline"
 
+//note this !!!!!!!!!
+//persist the basket
+//deploy to vercel
+//setp the search input when a user, the item's should popup
+//create personal API fro the books
+
 function Header() {
    const { data: session } = useSession()
    const router = useRouter()
