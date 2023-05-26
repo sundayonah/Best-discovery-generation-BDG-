@@ -10,6 +10,8 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 import { selectItems } from "@/slices/basketSlice"
+import { useEffect, useState } from "react"
+
 // import { BeakerIcon, Search } from "@heroicons/react/24/outline"
 
 //note this !!!!!!!!!
@@ -18,16 +20,48 @@ import { selectItems } from "@/slices/basketSlice"
 //setp the search input when a user, the item's should popup
 //create personal API fro the books
 
-function Header() {
+function Header({ books, onSearch }) {
    const { data: session } = useSession()
    const router = useRouter()
 
    const items = useSelector(selectItems)
 
-   // console.log(items)
+   // Add searchQuery state
+   // const [searchQuery, setSearchQuery] = useState("")
+   // const [searchResults, setSearchResults] = useState("")
 
-   // console.log(session.user.name)
-   // console.log(session.user)
+   // const handleSearch = () => {
+   //    const filteredResults = books.filter((book) =>
+   //       book.title.toLowerCase().includes(searchResults.toLowerCase())
+   //    )
+   //    setSearchResults(filteredResults)
+   //    // Perform any action with search results as needed
+   // }
+   // console.log(searchResults)
+   // console.log(books)
+
+   // useEffect(() => {
+   //    // Filter the books based on the search query
+   //    const filteredResults = books.filter((book) =>
+   //       book.title.toLowerCase().includes(searchQuery.toLowerCase())
+   //    )
+   //    setFilteredBooks(filteredResults)
+   // }, [searchQuery, books])
+
+   // const handleSearch = (e) => {
+   //    setSearchQuery(e.target.value)
+   // }
+
+   // console.log(searchQuery)
+   // console.log(filteredBooks)
+   // const [filteredBooks, setFilteredBooks] = useState([])
+
+   const [searchQuery, setSearchQuery] = useState("")
+
+   const handleSearch = (e) => {
+      setSearchQuery(e.target.value)
+      onSearch(e.target.value)
+   }
 
    return (
       <header className="sticky top-0 z-50">
@@ -44,10 +78,15 @@ function Header() {
                />
             </div>
             {/* Search */}
-            <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500">
+            <div
+               // onClick={handleSearch}
+               className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500"
+            >
                <input
                   className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4"
                   type="text"
+                  value={searchQuery}
+                  onChange={handleSearch}
                />
 
                <svg
@@ -79,7 +118,7 @@ function Header() {
                   className="Link"
                >
                   <p>Returns</p>
-                  <p className="font-extrabold md:text-sm">& Orders</p>
+                  <p className="font-extrabold md:text-sm">& Orderss</p>
                </div>{" "}
                <div
                   onClick={() => router.push("/checkout")}
