@@ -1,5 +1,5 @@
 import Image from "next/image"
-import img from "../bookimgs/Augustine.jpg"
+import img from "../bookimgs/silinceThatStrangeVoice.jpg"
 import {
    MenuIcon,
    ShoppingCartIcon,
