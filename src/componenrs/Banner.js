@@ -1,6 +1,6 @@
 import { Carousel } from "react-responsive-carousel"
 // import { book, book1, book2, book4, book6 } from "../images/index"
-// import ban1 from "../bookimgs/silinceThatStrangeVoice.jpg"
+import ban1 from "../bookimgs/silinceThatStrangeVoice.jpg"
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
 
 function Banner() {
