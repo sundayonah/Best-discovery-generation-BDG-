@@ -1,6 +1,6 @@
 import moment from "moment"
 // import Currency from "react-currency-formatter"
-import { FormattedNumber } from "react-intl"
+import { FormattedNumber, IntlProvider } from "react-intl"
 
 function Order({ id, amount, amountShipping, items, timestamp, images }) {
    const formattedDate = moment(timestamp).format("DD MMM YYYY")
