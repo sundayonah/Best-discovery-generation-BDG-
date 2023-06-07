@@ -1,5 +1,4 @@
 import moment from "moment"
-// import Currency from "react-currency-formatter"
 import { FormattedNumber, IntlProvider } from "react-intl"
 
 function Order({ id, amount, amountShipping, items, timestamp, images }) {
