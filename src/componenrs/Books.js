@@ -33,7 +33,7 @@ function Books({ id, title, price, description, category, image }) {
          rating,
          hasPrime,
       }
-      //sending the bok as an action to redux store
+      //sending the book as an action to redux store
       dispatch(addToBasket(book))
    }
 

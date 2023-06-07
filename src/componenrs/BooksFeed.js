@@ -1,5 +1,5 @@
 import Books from "./Books"
-import imgBanner from "../images/book6.jpg"
+// import imgBanner from "../images/book6.jpg"
 
 function BooksFeed({ books }) {
    // console.log(books)

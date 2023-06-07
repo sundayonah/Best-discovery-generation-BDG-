@@ -18,7 +18,7 @@ export default function Home({ books }) {
    return (
       <div className="bg-gray-200 ">
          <Head>
-            <title>E-ccomerce</title>
+            <title>Books</title>
          </Head>
 
          {/* HEADER */}
@@ -42,7 +42,6 @@ export async function getServerSideProps(content) {
       res.json()
    )
    // .then((json) => console.log(json))
-   // console.log(books)
    return {
       props: {
          books,
@@ -50,5 +49,3 @@ export async function getServerSideProps(content) {
       },
    }
 }
-
-// Get >>> https://fakestoreapi.com/products
