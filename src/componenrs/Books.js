@@ -47,9 +47,10 @@ function Books({ id, title, price, description, category, image }) {
 
          <Image
             src={image}
-            height={150}
             width={150}
+            height={200}
             className="m-auto object-contain"
+            alt="images"
          />
          <h4 className="my-3">{title}</h4>
 

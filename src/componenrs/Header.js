@@ -1,5 +1,5 @@
 import Image from "next/image"
-import img from "../bookimgs/silinceThatStrangeVoice.jpg"
+// import img from "../bookimgs/silinceThatStrangeVoice.jpg"
 import {
    MenuIcon,
    ShoppingCartIcon,
@@ -69,9 +69,9 @@ function Header({ books, onSearch }) {
             <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
                <Image
                   onClick={() => router.push("/")}
-                  src={img}
+                  // src={img}
                   width={30}
-                  hieght={30}
+                  height={30}
                   alt="logoimg"
                   className="cursor-pointer "
                   objectfit="contain"
