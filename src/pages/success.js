@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 function success() {
    const router = useRouter()
    return (
-      <div className="bg-gray-300 h-screen">
+      <div className="bg-gray-200 h-screen">
          <Header />
 
          <main className="max-w-screen-lg mx-auto">
