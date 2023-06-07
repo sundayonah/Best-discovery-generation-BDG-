@@ -3,12 +3,13 @@ import checkOutBanner from "../images/book6.jpg"
 import { useSelector } from "react-redux"
 import { selectItems, selectTotal } from "@/slices/basketSlice"
 import CheckoutBook from "@/componenrs/CheckoutBook"
-import Currency from "react-currency-formatter"
+// import Currency from "react-currency-formatter"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import Image from "next/image"
 
 import { loadStripe } from "@stripe/stripe-js"
+import { FormattedNumber, IntlProvider } from "react-intl"
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 const stripePromise = loadStripe(process.env.stripe_public_key)
@@ -89,7 +90,16 @@ function Checkout() {
                      <h2 className="whitespace-nowrap">
                         Subtotal ({items.length} items:){" "}
                         <span className="font-bold">
-                           <Currency quantity={total} currency="NGN" />
+                           <IntlProvider locale="en-US">
+                              <div>
+                                 <FormattedNumber
+                                    value={total}
+                                    style="currency"
+                                    currency="USD"
+                                 />
+                              </div>
+                           </IntlProvider>
+                           {/* <Currency quantity={total} currency="NGN" /> */}
                         </span>
                      </h2>
                      <button

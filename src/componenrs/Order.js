@@ -1,5 +1,6 @@
 import moment from "moment"
-import Currency from "react-currency-formatter"
+// import Currency from "react-currency-formatter"
+import { FormattedNumber } from "react-intl"
 
 function Order({ id, amount, amountShipping, items, timestamp, images }) {
    const formattedDate = moment(timestamp).format("DD MMM YYYY")
@@ -14,8 +15,21 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
             <div>
                <p className="text-xs font-bold">TOTAL</p>
                <p>
-                  <Currency quantity={amount} currency="NGN" /> - Next Day
-                  Delivery <Currency quantity={amountShipping} currency="NGN" />
+                  <IntlProvider locale="en-US">
+                     <FormattedNumber
+                        value={amount}
+                        style="currency"
+                        currency="USD"
+                     />
+                     {/* <Currency quantity={amount} currency="NGN" />  */}
+                     - Next Day Delivery
+                     <FormattedNumber
+                        value={amountShipping}
+                        style="currency"
+                        currency="USD"
+                     />
+                  </IntlProvider>
+                  {/* <Currency quantity={amountShipping} currency="NGN" /> */}
                </p>
             </div>
             <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500">
