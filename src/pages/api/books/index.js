@@ -7,7 +7,7 @@ export default function handler(req, res) {
          price: 9.99,
          description: "Description for Book 1",
          category: "Category 1",
-         image: "../../../bookimgs/adventurreToaGloriousDestiny.jpg",
+         image: "/../../../bookimgs/adventurreToaGloriousDestiny.jpg",
          rating: 4.5,
       },
       {
@@ -16,7 +16,7 @@ export default function handler(req, res) {
          price: 14.99,
          description: "Description for Book 2",
          category: "Category 2",
-         image: "../../../bookimgs/areWeStillBrethren.jpg",
+         image: "/../../../bookimgs/areWeStillBrethren.jpg",
          rating: 3.8,
       },
       {
@@ -25,7 +25,7 @@ export default function handler(req, res) {
          price: 9.99,
          description: "Description for Book 1",
          category: "Category 1",
-         image: "../../../bookimgs/beThink-Active.jpg",
+         image: "/../../../bookimgs/beThink-Active.jpg",
          rating: 4.5,
       },
       {
@@ -34,7 +34,7 @@ export default function handler(req, res) {
          price: 14.99,
          description: "Description for Book 2",
          category: "Category 2",
-         image: "../../../bookimgs/correctTheFoundation.jpg",
+         image: "/../../../bookimgs/correctTheFoundation.jpg",
          rating: 3.8,
       },
       {
@@ -43,7 +43,7 @@ export default function handler(req, res) {
          price: 9.99,
          description: "Description for Book 1",
          category: "Category 1",
-         image: "../../../bookimgs/keyToAccessingFinishingGrace.jpg",
+         image: "/../../../bookimgs/keyToAccessingFinishingGrace.jpg",
          rating: 4.5,
       },
       {
@@ -52,7 +52,7 @@ export default function handler(req, res) {
          price: 14.99,
          description: "Description for Book 2",
          category: "Category 2",
-         image: "../../../bookimgs/Part-TimeChristian.jpg",
+         image: "/../../../bookimgs/Part-TimeChristian.jpg",
          rating: 3.8,
       },
       {
@@ -61,7 +61,7 @@ export default function handler(req, res) {
          price: 9.99,
          description: "Description for Book 1",
          category: "Category 1",
-         image: "../../../bookimgs/silinceThatStrangeVoice.jpg",
+         image: "/../../../bookimgs/silinceThatStrangeVoice.jpg",
          rating: 4.5,
       },
       {
@@ -70,7 +70,7 @@ export default function handler(req, res) {
          price: 14.99,
          description: "Description for Book 2",
          category: "Category 2",
-         image: "../../../bookimgs/theGloryOfRevival.jpg",
+         image: "/../../../bookimgs/theGloryOfRevival.jpg",
          rating: 3.8,
       },
       {
@@ -79,7 +79,7 @@ export default function handler(req, res) {
          price: 9.99,
          description: "Description for Book 1",
          category: "Category 1",
-         image: "../../../bookimgs/thePowerOfCreativity.jpg",
+         image: "/../../../bookimgs/thePowerOfCreativity.jpg",
          rating: 4.5,
       },
       {
@@ -88,7 +88,7 @@ export default function handler(req, res) {
          price: 14.99,
          description: "Description for Book 2",
          category: "Category 2",
-         image: "../../../bookimgs/thePowerOfLIght.jpg",
+         image: "/../../../bookimgs/thePowerOfLIght.jpg",
          rating: 3.8,
       },
       {
@@ -97,13 +97,12 @@ export default function handler(req, res) {
          price: 9.99,
          description: "Description for Book 1",
          category: "Category 1",
-         image: "../../../bookimgs/theThreeDimensionofGodsWill.jpg",
+         image: "/../../../bookimgs/theThreeDimensionofGodsWill.jpg",
          rating: 4.5,
       },
 
       // Add more books as needed
    ]
-   console.log(books)
    if (req.method === "GET") {
       res.status(200).json(books)
    } else {

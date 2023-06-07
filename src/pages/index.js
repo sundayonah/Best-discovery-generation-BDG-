@@ -3,7 +3,7 @@ import Header from "@/componenrs/Header"
 import Head from "next/head"
 import BooksFeed from "@/componenrs/BooksFeed"
 import { getSession } from "next-auth/react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export default function Home({ books }) {
    const [filteredBooks, setFilteredBooks] = useState(books)
@@ -14,24 +14,6 @@ export default function Home({ books }) {
       )
       setFilteredBooks(filteredResults)
    }
-
-   const [booksApi, setBooksApi] = useState([])
-
-   useEffect(() => {
-      const fetchBooks = async () => {
-         try {
-            const response = await fetch("/api/books")
-            const data = await response.json()
-            setBooksApi(data)
-         } catch (error) {
-            console.error("Error fetching books:", error)
-         }
-      }
-
-      fetchBooks()
-   }, [])
-
-   console.log(booksApi)
 
    return (
       <div className="bg-gray-200 ">
@@ -57,11 +39,22 @@ export default function Home({ books }) {
 export async function getServerSideProps(content) {
    const session = await getSession(content)
 
-   //Fetch the books from the API
-   const books = await fetch("https://fakestoreapi.com/products").then((res) =>
+   //    //Fetch the books from the API
+
+   const books = await fetch("http://localhost:3000/api/books").then((res) =>
       res.json()
    )
-   // .then((json) => console.log(json))
+
+   // const data = await response.json()
+   // setBooks(data)
+   console.error("Error fetching books:", books)
+
+   console.log(books.length)
+
+   //    const books = await fetch("https://fakestoreapi.com/products").then((res) =>
+   //       res.json()
+   //    )
+   //    // .then((json) => console.log(json))
    return {
       props: {
          books,

@@ -1,5 +1,5 @@
 import Header from "@/componenrs/Header"
-import checkOutBanner from "../images/book6.jpg"
+// import checkOutBanner from "../images/book6.jpg"
 import { useSelector } from "react-redux"
 import { selectItems, selectTotal } from "@/slices/basketSlice"
 import CheckoutBook from "@/componenrs/CheckoutBook"
