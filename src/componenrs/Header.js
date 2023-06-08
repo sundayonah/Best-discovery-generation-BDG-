@@ -1,5 +1,5 @@
 import Image from "next/image"
-// import img from "../bookimgs/silinceThatStrangeVoice.jpg"
+import img from "/public/bookimgs/silinceThatStrangeVoice.jpg"
 import {
    MenuIcon,
    ShoppingCartIcon,
@@ -69,9 +69,9 @@ function Header({ books, onSearch }) {
             <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
                <Image
                   onClick={() => router.push("/")}
-                  // src={img}
-                  width={30}
-                  height={30}
+                  src={img}
+                  width={50}
+                  height={50}
                   alt="logoimg"
                   className="cursor-pointer "
                   objectfit="contain"
@@ -96,6 +96,7 @@ function Header({ books, onSearch }) {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth={2}
+                  alt="searchIcon"
                >
                   <path
                      strokeLinecap="round"
@@ -127,7 +128,7 @@ function Header({ books, onSearch }) {
                   <span className="absolute top-0 right-0 md:right-10 h-4 w-4 bg-yellow-400 text-center rounded-full text-black font-bold">
                      {items.length}
                   </span>
-                  <ShoppingCartIcon className="h-8" />
+                  <ShoppingCartIcon alt="shoppingcarticon" className="h-8" />
                   <p className=" hidden md:inline font-extrabold md:text-sm mt-2">
                      Basket
                   </p>

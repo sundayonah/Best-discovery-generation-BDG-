@@ -7,17 +7,14 @@ import CheckoutBook from "@/componenrs/CheckoutBook"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import Image from "next/image"
-
 import { loadStripe } from "@stripe/stripe-js"
 import { FormattedNumber, IntlProvider } from "react-intl"
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-
 const stripePromise = loadStripe(process.env.stripe_public_key)
 function Checkout() {
    const items = useSelector(selectItems)
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
-
    //checkout.js
    //connect this to checkout button
    const createCheckoutSession = async () => {
@@ -28,18 +25,14 @@ function Checkout() {
          items: items,
          email: session.user.email,
       })
-
-      console.log(items.price)
-
       //Redirect user/customer to Stripe Checkout
       const result = await stripe.redirectToCheckout({
          sessionId: checkoutSession.data.id,
       })
-      console.log(checkoutSession.data)
+      // console.log(checkoutSession.data)
 
       if (result.error) alert(result.error.message)
    }
-
    return (
       <div className="bg-gray-200">
          <Header />
@@ -51,6 +44,7 @@ function Checkout() {
                   width={1020}
                   height={200}
                   objectfit="contain"
+                  alt="image"
                />
                <div className="flex flex-col p-5 space-y-10 bg-white">
                   <h1 className="text-3xl border-b pb-4">
@@ -82,7 +76,6 @@ function Checkout() {
                   )}
                </div>
             </div>
-
             {/* Right */}
             <div className="flex flex-col bg-white p-10 shadow-md">
                {items.length > 0 && (

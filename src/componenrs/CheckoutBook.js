@@ -36,12 +36,12 @@ function CheckoutBook({
    }
    return (
       <div className="grid grid-cols-5">
-         <img
+         <Image
             src={image}
-            width={200}
-            hieght={200}
-            alt="ckeckoutbook"
-            objectfit="contain"
+            width={150}
+            height={200}
+            className="m-auto object-contain"
+            alt="images"
          />
 
          {/* middle section */}
