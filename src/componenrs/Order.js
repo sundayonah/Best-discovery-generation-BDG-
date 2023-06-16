@@ -45,7 +45,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                   <img
                      key={id}
                      src={image}
-                     alt=""
+                     alt="images"
                      className="h-20 object-contain sm:h-32"
                   />
                ))}

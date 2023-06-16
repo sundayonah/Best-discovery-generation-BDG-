@@ -8,7 +8,8 @@ export default function handler(req, res) {
             price: 9.99,
             description: "Description for Book 1",
             category: "Category 1",
-            image: "/../public/bookimgs/adventurreToaGloriousDestiny.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/adventurreToaGloriousDestiny.jpg`,
+
          },
          {
             id: 2,
@@ -16,7 +17,8 @@ export default function handler(req, res) {
             price: 14.99,
             description: "Description for Book 2",
             category: "Category 2",
-            image: "/../public/bookimgs/areWeStillBrethren.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
+
          },
          {
             id: 3,
@@ -24,7 +26,7 @@ export default function handler(req, res) {
             price: 9.99,
             description: "Description for Book 1",
             category: "Category 1",
-            image: "/../public/bookimgs/beThink-Active.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
          },
          {
             id: 4,
@@ -32,7 +34,7 @@ export default function handler(req, res) {
             price: 14.99,
             description: "Description for Book 2",
             category: "Category 2",
-            image: "/../public/bookimgs/correctTheFoundation.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/correctTheFoundation.jpg`,
          },
          {
             id: 5,
@@ -40,7 +42,8 @@ export default function handler(req, res) {
             price: 9.99,
             description: "Description for Book 1",
             category: "Category 1",
-            image: "/../public/bookimgs/keyToAccessingFinishingGrace.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/keyToAccessingFinishingGrace.jpg`,
+
          },
          {
             id: 6,
@@ -48,7 +51,8 @@ export default function handler(req, res) {
             price: 14.99,
             description: "Description for Book 2",
             category: "Category 2",
-            image: "/../public/bookimgs/Part-TimeChristian.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/Part-TimeChristian.jpg`,
+
          },
          {
             id: 7,
@@ -56,7 +60,7 @@ export default function handler(req, res) {
             price: 9.99,
             description: "Description for Book 1",
             category: "Category 1",
-            image: "/../public/bookimgs/silinceThatStrangeVoice.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/silinceThatStrangeVoice.jpg`,
          },
          {
             id: 8,
@@ -64,7 +68,8 @@ export default function handler(req, res) {
             price: 14.99,
             description: "Description for Book 2",
             category: "Category 2",
-            image: "/../public/bookimgs/theGloryOfRevival.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/theGloryOfRevival.jpg`,
+
          },
          {
             id: 9,
@@ -72,7 +77,8 @@ export default function handler(req, res) {
             price: 9.99,
             description: "Description for Book 1",
             category: "Category 1",
-            image: "/../public/bookimgs/thePowerOfCreativity.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfCreativity.jpg`,
+
          },
          {
             id: 10,
@@ -80,7 +86,8 @@ export default function handler(req, res) {
             price: 14.99,
             description: "Description for Book 2",
             category: "Category 2",
-            image: "/../public/bookimgs/thePowerOfLIght.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfLIght.jpg`,
+
          },
          {
             id: 11,
@@ -88,7 +95,8 @@ export default function handler(req, res) {
             price: 9.99,
             description: "Description for Book 1",
             category: "Category 1",
-            image: "/../public/bookimgs/theThreeDimensionofGodsWill.jpg",
+            image: `${process.env.NEXTAUTH_URL}/bookimgs/theThreeDimensionofGodsWill.jpg`,
+
          },
 
          // Add more books as needed

@@ -17,19 +17,20 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 const createCheckoutSession = async (req, res) => {
    // Get the items and email from the request body
    const { items, email } = req.body
-
    // Convert the price to a number
    const price = parseFloat(items[0].price)
 
+   
    // Validate the items and price
    if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: "Invalid items or price" })
    }
-
+   
    // Validate the price
    if (isNaN(price) || price <= 0) {
       return res.status(400).json({ error: "Invalid price" })
    }
+
 
    // Create a line item for each item
    const lineItems = items.map((item) => ({
@@ -59,6 +60,7 @@ const createCheckoutSession = async (req, res) => {
          },
       })
 
+
       // Return the session ID
       res.status(200).json({ id: session.id })
    } catch (error) {
@@ -68,6 +70,6 @@ const createCheckoutSession = async (req, res) => {
       res.status(500).json({ error: "Failed to create checkout session" })
    }
 }
-
+//https://vscode.dev/tunnel/macs-macbook-proloca/Users/user/Desktop/Encoded/projects/amazon-nextjs
 // Export the function
-export default createCheckoutSession
+module.exports = createCheckoutSession;
