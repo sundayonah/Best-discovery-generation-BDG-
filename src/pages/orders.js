@@ -6,7 +6,6 @@ import Header from "@/componenrs/Header"
 
 function Orders({ orders }) {
    const { data: session } = useSession()
-
    // console.log(orders)
    return (
       <div>
@@ -50,7 +49,6 @@ export async function getServerSideProps(context) {
          },
       }
    }
-
    // Retrieve orders from Firebase DB
    const firebaseOrders = await db
       .collection("users")
@@ -84,5 +82,4 @@ export async function getServerSideProps(context) {
       },
    }
 }
-
 export default Orders
