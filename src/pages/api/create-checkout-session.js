@@ -50,8 +50,8 @@ const createCheckoutSession = async (req, res) => {
       const session = await stripe.checkout.sessions.create({
          line_items: lineItems,
          mode: "payment",
-         success_url: `${process.env.NEXTAUTH_URL}/success`,
-         cancel_url: `${process.env.NEXTAUTH_URL}/checkout`,
+         success_url: `${process.env.NEXT_AUTH_URL}/success`,
+         cancel_url: `${process.env.NEXT_AUTH_URL}/checkout`,
          metadata: {
             email,
             // address,

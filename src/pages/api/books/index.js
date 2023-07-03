@@ -8,7 +8,7 @@ export default function handler(req, res) {
             price: 800,
             description: "Description for Book 1",
             category: "Category 1",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/adventurreToaGloriousDestiny.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/adventurreToaGloriousDestiny.jpg`,
 
          },
          {
@@ -19,7 +19,7 @@ export default function handler(req, res) {
             about love in the brotherhood and the Christendom at large. This book clearly shows you what the true 
             love of God is and what it offers both to a believer and unbeliever.`,
             category: "Category 2",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
 
          },
          {
@@ -37,7 +37,7 @@ export default function handler(req, res) {
             This book is a clarion call for everyone to think more and talk less.
             Remember, “ as a man thinketh in his heart, so is he” ( prov. 23:7)`,
             category: "Category 1",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/beThink-Active.jpg`,
          },
          {
             id: 4,
@@ -55,7 +55,7 @@ export default function handler(req, res) {
             error you corrected brings liberation to you and your family. This is the book that answers all your
              questions as regards to the deed of your fathers and the aftermath effect.`,
             category: "Category 2",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/correctTheFoundation.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/correctTheFoundation.jpg`,
          },
          {
             id: 5,
@@ -70,7 +70,7 @@ export default function handler(req, res) {
              so as to not only finish, but finish well and at the expected (set) time.
             Until you access the finishing grace you will be disgrace in the process.`,
             category: "Category 1",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/keyToAccessingFinishingGrace.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/keyToAccessingFinishingGrace.jpg`,
 
          },
          {
@@ -87,7 +87,7 @@ export default function handler(req, res) {
             practically tells you what to do to gain victory over the devil cheaply when you choose to stand with God. 
             Remember, choose you  this  whom ye will serve…( Joshua 24:15)`,
             category: "Category 2",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/Part-TimeChristian.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/Part-TimeChristian.jpg`,
 
          },
          {
@@ -101,7 +101,7 @@ export default function handler(req, res) {
             to differentiate them. This book clearly identifies these three voices and keys to engage to stop the one
              that leads to destruction and frustration.`,
             category: "Category 1",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/silinceThatStrangeVoice.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/silinceThatStrangeVoice.jpg`,
          },
          {
             id: 8,
@@ -121,7 +121,7 @@ export default function handler(req, res) {
             studiously digesting the contents of this book, and you will experience the reviving power 
             of God like never before.`,
             category: "Category 2",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/theGloryOfRevival.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/theGloryOfRevival.jpg`,
 
          },
          {
@@ -134,7 +134,7 @@ export default function handler(req, res) {
              in what they do. You can not be doing one thing the same way and expected a different result. 
              Every chapter in this book unleased the power of transformation.`,
             category: "Category 1",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfCreativity.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/thePowerOfCreativity.jpg`,
 
          },
          {
@@ -148,7 +148,7 @@ export default function handler(req, res) {
             What light can not do is what God cannot do.  Applying the contents of this book puts you on the 
             flight in life and destiny.`,
             category: "Category 2",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfLIght.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/thePowerOfLIght.jpg`,
          },
          {
             id: 11,
@@ -156,7 +156,7 @@ export default function handler(req, res) {
             price: 1000,
             description: "Description for Book 1",
             category: "Category 1",
-            image: `${process.env.NEXTAUTH_URL}/bookimgs/theThreeDimensionofGodsWill.jpg`,
+            image: `${process.env.NEXT_AUTH_URL}/bookimgs/theThreeDimensionofGodsWill.jpg`,
 
          },
 
