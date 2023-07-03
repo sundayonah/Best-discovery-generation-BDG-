@@ -25,9 +25,9 @@ export default function Home({ books }) {
          {/* HEADER */}
          <Header books={books} onSearch={handleSearch} />
 
-         <main className="max-w-screen-2xl mx-auto ">
+         <main className="max-w-screen-2xl mx-auto mt-64">
             {/* Banner */}
-            <Banner />
+            {/* <Banner /> */}
             {/* ProductsFeed */}
             <BooksFeed books={filteredBooks} />
          </main>

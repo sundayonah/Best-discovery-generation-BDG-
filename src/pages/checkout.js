@@ -3,12 +3,14 @@ import Header from "@/componenrs/Header"
 import { useSelector } from "react-redux"
 import { selectItems, selectTotal } from "@/slices/basketSlice"
 import CheckoutBook from "@/componenrs/CheckoutBook"
+
 // import Currency from "react-currency-formatter"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import Image from "next/image"
 import { loadStripe } from "@stripe/stripe-js"
 import { FormattedNumber, IntlProvider } from "react-intl"
+
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const stripePromise = loadStripe(process.env.stripe_public_key)
 function Checkout() {
@@ -16,6 +18,7 @@ function Checkout() {
 
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
+
    //checkout.js
    //connect this to checkout button
    const createCheckoutSession = async () => {
@@ -26,7 +29,8 @@ function Checkout() {
       const checkoutSession = await axios.post("api/create-checkout-session", {
          items: items,
          email: session.user.email,
-      })
+      });
+
       //Redirect user/customer to Stripe Checkout
       const result = await stripe.redirectToCheckout({
          sessionId: checkoutSession.data.id,
@@ -39,13 +43,13 @@ function Checkout() {
          <main className="lg:flex max-w-screen-2xl mx-auto">
             {/* LEFT */}
             <div className="flex-grow m-5 shadow-sm">
-               <Image
+               {/* <Image
                   src="https://links.papareact.com/ikj"
                   width={1020}
                   height={200}
                   objectfit="contain"
                   alt="image"
-               />
+               /> */}
                <div className="flex flex-col p-5 space-y-10 bg-white">
                   <h1 className="text-3xl border-b pb-4">
                      {items.length == 0
