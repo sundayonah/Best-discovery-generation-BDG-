@@ -13,6 +13,7 @@ import { FormattedNumber, IntlProvider } from "react-intl"
 const stripePromise = loadStripe(process.env.stripe_public_key)
 function Checkout() {
    const items = useSelector(selectItems)
+
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
    //checkout.js
@@ -30,8 +31,6 @@ function Checkout() {
       const result = await stripe.redirectToCheckout({
          sessionId: checkoutSession.data.id,
       })
-console.log(result)
-
       if (result.error) alert(result.error.message)
    }
    return (

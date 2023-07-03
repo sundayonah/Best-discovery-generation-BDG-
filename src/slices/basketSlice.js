@@ -13,12 +13,13 @@ export const basketSlice = createSlice({
       // },
 
       addToBasket: (state, action) => {
-         const { id, title, price, image } = action.payload
+         const { id, title, price,  description, image } = action.payload
       
          state.items = [...state.items, {
             id,
             title,
             price,
+            description,
             image,
          }]
       },

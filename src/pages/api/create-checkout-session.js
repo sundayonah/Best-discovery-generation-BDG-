@@ -31,7 +31,6 @@ const createCheckoutSession = async (req, res) => {
       return res.status(400).json({ error: "Invalid price" })
    }
 
-
    // Create a line item for each item
    const lineItems = items.map((item) => ({
       quantity: 1,
