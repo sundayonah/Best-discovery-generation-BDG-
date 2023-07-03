@@ -36,7 +36,7 @@ const createCheckoutSession = async (req, res) => {
    const lineItems = items.map((item) => ({
       quantity: 1,
       price_data: {
-         currency: "usd",
+         currency: "ngn",
          unit_amount: item.price * 100,
          product_data: {
             name: item.title,

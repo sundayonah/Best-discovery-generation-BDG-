@@ -78,7 +78,7 @@ function Books({ id, title, price, description, category, image }) {
                   <FormattedNumber
                      value={price}
                      style="currency"
-                     currency="USD"
+                     currency="NGN"
                   />
                </div>
             </IntlProvider>

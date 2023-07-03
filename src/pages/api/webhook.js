@@ -10,13 +10,13 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET
 
 const fulfillOrder = async (session) => {
+
    // Initialize the Firebase app if not already initialized
    if (!admin.apps.length) {
       admin.initializeApp({
          credential: admin.credential.cert(serviceAccount),
       })
    }
-
    return admin
       .firestore()
       .collection("users")
@@ -33,7 +33,6 @@ const fulfillOrder = async (session) => {
          console.log(`SUCCESS: Order ${session.id} has been added to the DB`)
       })
 }
-
 export default async (req, res) => {
    if (req.method === "POST") {
       const requestBuffer = await buffer(req)
@@ -63,7 +62,6 @@ export default async (req, res) => {
       }
    }
 }
-
 export const config = {
    api: {
       bodyParser: false,

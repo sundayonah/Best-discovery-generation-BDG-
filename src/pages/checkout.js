@@ -89,7 +89,7 @@ console.log(result)
                                  <FormattedNumber
                                     value={total}
                                     style="currency"
-                                    currency="USD"
+                                    currency="NGN"
                                  />
                               </div>
                            </IntlProvider>

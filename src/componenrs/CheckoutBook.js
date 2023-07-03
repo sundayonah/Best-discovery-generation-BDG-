@@ -70,7 +70,7 @@ function CheckoutBook({
                      <FormattedNumber
                         value={price}
                         style="currency"
-                        currency="USD"
+                        currency="NGN"
                      />
                   </div>
                </IntlProvider>
