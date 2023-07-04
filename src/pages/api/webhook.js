@@ -12,12 +12,20 @@ const endpointSecret = process.env.STRIPE_SIGNING_SECRET
 const fulfillOrder = async (session) => {
 
    // Initialize the Firebase app if not already initialized
-   if (!admin.apps.length) {
-      admin.initializeApp({
-         credential: admin.credential.cert(serviceAccount),
-      })
-   }
-   return admin
+   // if (!admin.apps.length) {
+   //    admin.initializeApp({
+   //       credential: admin.credential.cert(serviceAccount),
+   //    })
+   // }
+
+   // Create a new order in the DB
+   const app = !admin.apps.length 
+   ? admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)})
+    : admin.app();
+
+
+   return app
       .firestore()
       .collection("users")
       .doc(session.metadata.email)
@@ -45,7 +53,6 @@ export default async (req, res) => {
       try {
          event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
       } catch (error) {
-         console.log("ERROR", error.message)
          return res.status(404).send(`Webhook error: ${error.message}`)
       }
 
