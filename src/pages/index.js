@@ -42,7 +42,7 @@ export default function Home({ books }) {
 export async function getServerSideProps(content) {
    const session = await getSession(content)
    //Fetch the books from the API
-   const books = await fetch(`${process.env.NEXT_AUTH_URL}/api/books`).then((res) => res.json());
+   const books = await fetch(`${process.env.NEXTAUTH_URL}/api/books`).then((res) => res.json());
 
    // const books = await fetch("http://localhost:3000/api/books").then((res) =>
    //    res.json()
