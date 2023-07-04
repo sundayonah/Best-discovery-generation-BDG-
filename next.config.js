@@ -3,7 +3,7 @@ const nextConfig = {}
 
 module.exports = {
   images: {
-    domains: ['localhost'],
+    domains: ['augustin-obi.netlify.app'],
   },
   env: {
     stripe_public_key: process.env.STRIPE_PUBLIC_KEY,
