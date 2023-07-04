@@ -64,7 +64,7 @@ function Books({ id, title, price, description, category, image }) {
 
          <p className="text-xs my-2 overflow-hidden text-overflow-ellipsis">
             <span
-               className="inline-block max-h-12 overflow-hidden"
+               className="inline-block max-h-12 overflow-hidden truncate"
                style={{ maxHeight: "3rem" }}
             >
                {description}

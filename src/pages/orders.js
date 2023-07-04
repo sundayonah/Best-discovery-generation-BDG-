@@ -20,15 +20,16 @@ function Orders({ orders }) {
                <h2>Please sign in to see your orders</h2>
             )}
             <div className="mt-5 space-y-4">
-               {orders?.map((order) => (
+               {orders?.map(
+                  ({id, amount, amountShipping, items, timestamp, images}) => (
                   <Order
-                     key={order.id}
-                     id={order.id}
-                     amount={order.amount}
-                     amountShipping={order.amountShipping}
-                     items={order.items}
-                     timestamp={order.timestamp}
-                     images={order.images}
+                     key={id}
+                     id={id}
+                     amount={amount}
+                     amountShipping={amountShipping}
+                     items={items}
+                     timestamp={timestamp}
+                     images={images}
                   />
                ))}
             </div>
