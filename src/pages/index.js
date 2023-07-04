@@ -31,7 +31,6 @@ export default function Home({ books }) {
             {/* ProductsFeed */}
             <BooksFeed books={filteredBooks} />
          </main>
-
          {/* <div className="">
             <p className="">FOOTER</p>
          </div> */}
