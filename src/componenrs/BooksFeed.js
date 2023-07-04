@@ -22,4 +22,4 @@ function BooksFeed({ books }) {
       </div>
    )
 }
-export default BooksFeed
+export default BooksFeed;

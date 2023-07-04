@@ -17,7 +17,7 @@ export default function Home({ books }) {
    }
 
    return (
-      <div className="bg-gray-200 ">
+      <div className="bg-gray-300 ">
          <Head>
             <title>Books</title>
          </Head>
