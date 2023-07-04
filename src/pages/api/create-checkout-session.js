@@ -1,15 +1,3 @@
-// It was the same with me. You have the create-checkout-session.js
-// file that creates the checkout session. The data structure in there is not
-// suitable for the new Stripe API version. Read the documentation he is showing in the video.
-// When you read (slowly)  you will see that for example you can not have a payment_method_types property
-// in that object. Once you create the expected data structure it is not throwing that error.
-
-// This example sets up an endpoint using the Express framework.
-// Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
-
-//THIS SNIPPET IS WORKING PERFECTLY
-//create-checkout-session.js
-
 // Import Stripe
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 // Create a function to create a checkout session
@@ -20,7 +8,6 @@ const createCheckoutSession = async (req, res) => {
    // Convert the price to a number
    const price = parseFloat(items[0].price)
 
-   
    // Validate the items and price
    if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: "Invalid items or price" })
@@ -59,7 +46,6 @@ const createCheckoutSession = async (req, res) => {
          },
       })
 
-
       // Return the session ID
       res.status(200).json({ id: session.id })
    } catch (error) {
@@ -69,6 +55,4 @@ const createCheckoutSession = async (req, res) => {
       res.status(500).json({ error: "Failed to create checkout session" })
    }
 }
-//https://vscode.dev/tunnel/macs-macbook-proloca/Users/user/Desktop/Encoded/projects/amazon-nextjs
-// Export the function
 module.exports = createCheckoutSession;

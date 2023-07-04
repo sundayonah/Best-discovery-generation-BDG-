@@ -17,7 +17,7 @@ import { useEffect, useState } from "react"
 //note this !!!!!!!!!
 //persist the basket
 //deploy to vercel
-//setp the search input when a user, the item's should popup
+//setup the search input when a user, search the item's should popup
 //create personal API fro the books
 
 function Header({ books, onSearch }) {
@@ -77,9 +77,7 @@ function Header({ books, onSearch }) {
                   objectfit="contain"
                />
             </div>
-            {/* Search */}
             <div
-               // onClick={handleSearch}
                className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-yellow-400 hover:bg-yellow-500"
             >
                <input
