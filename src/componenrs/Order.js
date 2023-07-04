@@ -18,14 +18,14 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                      <FormattedNumber
                         value={amount}
                         style="currency"
-                        currency="USD"
+                        currency="NGN"
                      />
                      {/* <Currency quantity={amount} currency="NGN" />  */}
                      - Next Day Delivery
                      <FormattedNumber
                         value={amountShipping}
                         style="currency"
-                        currency="USD"
+                        currency="NGN"
                      />
                   </IntlProvider>
                   {/* <Currency quantity={amountShipping} currency="NGN" /> */}
