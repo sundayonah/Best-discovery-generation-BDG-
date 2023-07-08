@@ -71,7 +71,7 @@ export async function getServerSideProps(context) {
             amount: stripeOrder.amount_total,
             amountShipping: stripeOrder.total_details.amount_shipping,
             images: JSON.parse(stripeOrder.metadata.images),
-            timestamp: moment(stripeOrder.created * 1000).unix(),
+            timestamp: order.data().timestamp.toDate().getTime(), // Convert Firebase Timestamp to Unix timestamp
             items: stripeOrder.line_items.data,
          }
       })
