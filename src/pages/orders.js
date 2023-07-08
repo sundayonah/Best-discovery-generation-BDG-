@@ -25,8 +25,8 @@ function Orders({ orders }) {
                   <Order
                      key={id}
                      id={id}
-                     amount={amount}
-                     amountShipping={amountShipping}
+                     amount={amount / 100} //convert to the appropriate currency format.
+                     amountShipping={amountShipping / 100} //convert to the appropriate currency format.
                      items={items}
                      timestamp={timestamp}
                      images={images}

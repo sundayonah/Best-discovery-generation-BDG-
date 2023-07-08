@@ -17,13 +17,12 @@ const fulfillOrder = async (session) => {
    //       credential: admin.credential.cert(serviceAccount),
    //    })
    // }
-
    // Create a new order in the DB
+   
    const app = !admin.apps.length 
    ? admin.initializeApp({
       credential: admin.credential.cert(serviceAccount)})
     : admin.app();
-
 
    return app
       .firestore()
@@ -38,9 +37,9 @@ const fulfillOrder = async (session) => {
          timestamp: admin.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
-         console.log(`SUCCESS: Order ${session.id} has been added to the DB`)
       })
-}
+};
+
 export default async (req, res) => {
    if (req.method === "POST") {
       const requestBuffer = await buffer(req)
@@ -55,7 +54,6 @@ export default async (req, res) => {
       } catch (error) {
          return res.status(404).send(`Webhook error: ${error.message}`)
       }
-
       // Handle the checkout.session.completed event
       if (event.type === "checkout.session.completed") {
          const session = event.data.object
