@@ -28,6 +28,10 @@ const createCheckoutSession = async (req, res) => {
             name: item.title,
             images: [item.image],
             description: item.description,
+            // documents: [
+            //    { type: 'pdf', url: item.pdf}
+            // ]
+            pdf: item.pdf
          },
       },
    }))

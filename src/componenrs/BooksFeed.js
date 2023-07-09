@@ -18,7 +18,6 @@ function BooksFeed({ books }) {
                   image={image}
                />
             ))}
-         {/* <Image className="md:col-span-full" src={imgBanner} hieght={200} width={200} alt="banner" /> */}
       </div>
    )
 }

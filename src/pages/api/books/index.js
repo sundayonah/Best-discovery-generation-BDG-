@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 export default function handler(req, res) {
    try {
       // Mock data for books (replace with your actual data source or database integration)
@@ -9,7 +12,7 @@ export default function handler(req, res) {
             description: "Description for Book 1",
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/adventurreToaGloriousDestiny.jpg`,
-
+            pdf: fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf'))
          },
          {
             id: 2,
@@ -20,7 +23,8 @@ export default function handler(req, res) {
             love of God is and what it offers both to a believer and unbeliever.`,
             category: "Category 2",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
-
+            pdf: fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf'))
+            
          },
          {
             id: 3,
@@ -38,6 +42,8 @@ export default function handler(req, res) {
             Remember, “ as a man thinketh in his heart, so is he” ( prov. 23:7)`,
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
+            pdf: fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf'))
+
          },
          {
             id: 4,

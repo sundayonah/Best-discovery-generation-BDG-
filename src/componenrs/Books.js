@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux"
 const MAX_RATING = 5
 const MIN_RATING = 1
 
-function Books({ id, title, price, description, category, image }) {
+function Books({ id, title, price, description, category, image, pdf }) {
    const dispatch = useDispatch()
 
    const [rating, setRating] = useState(0)
@@ -34,10 +34,13 @@ function Books({ id, title, price, description, category, image }) {
          image,
          rating,
          hasPrime,
+         pdf
       }
       //sending the book as an action to redux store
       dispatch(addToBasket(book))
    }
+
+   console.log(pdf)
 
    return (
       <div className="relative flex flex-col m-5 bg-white z-30 p-10 rounded">
@@ -70,7 +73,6 @@ function Books({ id, title, price, description, category, image }) {
                {description}
             </span>
          </p>
-
          <div className="mb-5">
             {/* <Currency quantity={price} currency="NGN" /> */}
             <IntlProvider locale="en-US">
@@ -83,6 +85,7 @@ function Books({ id, title, price, description, category, image }) {
                </div>
             </IntlProvider>
          </div>
+         {/* <span>{pdf} </span> */}
          {/* {hasPrime && (
         <div className="flex items-center space-x-2 -mt-5">
           <img

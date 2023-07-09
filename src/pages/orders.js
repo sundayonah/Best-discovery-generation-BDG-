@@ -6,7 +6,7 @@ import Header from "@/componenrs/Header"
 
 function Orders({ orders }) {
    const { data: session } = useSession()
-   // console.log(orders)
+   console.log(orders)
    return (
       <div>
          <Header />
@@ -21,7 +21,7 @@ function Orders({ orders }) {
             )}
             <div className="mt-5 space-y-4">
                {orders?.map(
-                  ({id, amount, amountShipping, items, timestamp, images}) => (
+                  ({id, amount, amountShipping, items, timestamp, images, pdf}) => (
                   <Order
                      key={id}
                      id={id}
@@ -30,12 +30,13 @@ function Orders({ orders }) {
                      items={items}
                      timestamp={timestamp}
                      images={images}
+                     pdf={pdf}
                   />
                ))}
             </div>
          </main>
       </div>
-   )
+   )    
 }
 export async function getServerSideProps(context) {
    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
