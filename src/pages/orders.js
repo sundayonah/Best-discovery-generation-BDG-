@@ -3,10 +3,10 @@ import db from "../../firebase"
 import moment from "moment"
 import Order from "@/componenrs/Order"
 import Header from "@/componenrs/Header"
+// import fs from 'fs';
 
 function Orders({ orders }) {
    const { data: session } = useSession()
-   console.log(orders)
    return (
       <div>
          <Header />
@@ -65,8 +65,9 @@ export async function getServerSideProps(context) {
          const stripeOrder = await stripe.checkout.sessions.retrieve(order.id, {
             expand: ["line_items"],
          })
-         // console.log(stripe)
 
+         // const pdf = stripeOrder.metadata.pdf || null; // Set pdf to null if not available
+              
          return {
             id: order.id,
             amount: stripeOrder.amount_total,
@@ -74,9 +75,10 @@ export async function getServerSideProps(context) {
             images: JSON.parse(stripeOrder.metadata.images),
             timestamp: order.data().timestamp.toDate().getTime(), // Convert Firebase Timestamp to Unix timestamp
             items: stripeOrder.line_items.data,
+            pdf: stripeOrder.metadata.pdf || null,
          }
       })
-   )
+      )
 
    return {
       props: {

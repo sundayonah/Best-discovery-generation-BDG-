@@ -11,12 +11,6 @@ const endpointSecret = process.env.STRIPE_SIGNING_SECRET
 
 const fulfillOrder = async (session) => {
 
-   // Initialize the Firebase app if not already initialized
-   // if (!admin.apps.length) {
-   //    admin.initializeApp({
-   //       credential: admin.credential.cert(serviceAccount),
-   //    })
-   // }
    // Create a new order in the DB
    
    const app = !admin.apps.length 
@@ -35,6 +29,8 @@ const fulfillOrder = async (session) => {
          amount_shipping: session.total_details.amount_shipping / 100,
          images: JSON.parse(session.metadata.images),
          timestamp: admin.firestore.FieldValue.serverTimestamp(),
+         pdf: pdf,
+         // pdf: session.metadata.pdf,
       })
       .then(() => {
       })

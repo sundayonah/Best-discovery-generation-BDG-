@@ -12,7 +12,7 @@ export default function handler(req, res) {
             description: "Description for Book 1",
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/adventurreToaGloriousDestiny.jpg`,
-            pdf: fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf'))
+            pdf: "/pdf/Fasting-and-Prayer.pdf",
          },
          {
             id: 2,
@@ -23,8 +23,7 @@ export default function handler(req, res) {
             love of God is and what it offers both to a believer and unbeliever.`,
             category: "Category 2",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
-            pdf: fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf'))
-            
+            pdf: '/pdf/Fasting.pdf',            
          },
          {
             id: 3,
@@ -42,8 +41,7 @@ export default function handler(req, res) {
             Remember, “ as a man thinketh in his heart, so is he” ( prov. 23:7)`,
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
-            pdf: fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf'))
-
+            pdf: '/pdf/Fasting-and-Prayer.pdf',
          },
          {
             id: 4,
@@ -62,6 +60,7 @@ export default function handler(req, res) {
              questions as regards to the deed of your fathers and the aftermath effect.`,
             category: "Category 2",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/correctTheFoundation.jpg`,
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
          {
             id: 5,
@@ -77,7 +76,7 @@ export default function handler(req, res) {
             Until you access the finishing grace you will be disgrace in the process.`,
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/keyToAccessingFinishingGrace.jpg`,
-
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
          {
             id: 6,
@@ -94,11 +93,11 @@ export default function handler(req, res) {
             Remember, choose you  this  whom ye will serve…( Joshua 24:15)`,
             category: "Category 2",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/Part-TimeChristian.jpg`,
-
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
          {
             id: 7,
-            title: "Silince That Strange Voice",
+            title: "Silence That Strange Voice",
             price: 500,
             description: `We live by voices, our actions are the direct effect of the voice we obeyed. 
             There are three voices you hear. The voice of God, the voice of Satan ( strange) and your personal voice.
@@ -108,6 +107,8 @@ export default function handler(req, res) {
              that leads to destruction and frustration.`,
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/silinceThatStrangeVoice.jpg`,
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+
          },
          {
             id: 8,
@@ -128,7 +129,7 @@ export default function handler(req, res) {
             of God like never before.`,
             category: "Category 2",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/theGloryOfRevival.jpg`,
-
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
          {
             id: 9,
@@ -141,7 +142,7 @@ export default function handler(req, res) {
              Every chapter in this book unleased the power of transformation.`,
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfCreativity.jpg`,
-
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
          {
             id: 10,
@@ -155,6 +156,7 @@ export default function handler(req, res) {
             flight in life and destiny.`,
             category: "Category 2",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfLIght.jpg`,
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
          {
             id: 11,
@@ -163,12 +165,10 @@ export default function handler(req, res) {
             description: "Description for Book 1",
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/theThreeDimensionofGodsWill.jpg`,
-
+            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
          },
-
-         // Add more books as neede
+         // Add more books as need
       ]
-
       if (req.method === "GET") {
          res.status(200).json(books)
       } else {

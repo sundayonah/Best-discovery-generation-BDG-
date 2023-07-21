@@ -42,18 +42,11 @@ function Checkout() {
          <main className="lg:flex max-w-screen-2xl mx-auto">
             {/* LEFT */}
             <div className="flex-grow m-5 shadow-sm">
-               {/* <Image
-                  src="https://links.papareact.com/ikj"
-                  width={1020}
-                  height={200}
-                  objectfit="contain"
-                  alt="image"
-               /> */}
                <div className="flex flex-col p-5 space-y-10 bg-white">
                   <h1 className="text-3xl border-b pb-4">
-                     {items.length == 0
+                     { items.length == 0
                         ? "Your Basket is empty"
-                        : "Your Shopping Basket"}
+                        : "Your Shopping Basket" }
                   </h1>
                   {items.map(
                      ({
