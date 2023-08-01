@@ -7,7 +7,7 @@ module.exports = {
     domains: ['augustin-obi.netlify.app', 'localhost'],
     // domains: ['augustin-obi.netlify.app', '64a327b650d4bf4ce07df652--augustin-obi.netlify.app/'],
   },
-  env: {
-    stripe_public_key: process.env.STRIPE_PUBLIC_KEY,
-  },
+  // env: {
+  //   stripe_public_key: process.env.STRIPE_PUBLIC_KEY,
+  // },
 }

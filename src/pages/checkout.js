@@ -8,34 +8,70 @@ import CheckoutBook from "@/componenrs/CheckoutBook"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import Image from "next/image"
-import { loadStripe } from "@stripe/stripe-js"
+// import { loadStripe } from "@stripe/stripe-js"
 import { FormattedNumber, IntlProvider } from "react-intl"
+import { usePaystackPayment } from "react-paystack"
+// import Paystack from 'paystack';
 
 // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-const stripePromise = loadStripe(process.env.stripe_public_key)
+
+// const paystack = Paystack.init({ key: process.env.PAYSTACK_PUBLIC_KEY }); // Replace 'YOUR_PUBLIC_KEY' with your actual Paystack public key
+
+const PAYSTACK_PUBLIC_KEY = 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6'
+
+
 function Checkout() {
    const items = useSelector(selectItems)
 
+   console.log(items)
+
+   console.log(PAYSTACK_PUBLIC_KEY)
+
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
+   
+   // const [paystackKey, setPaystackKey] = useState(""); // Set your Paystack public key here
 
-   //checkout.js
-   //connect this to checkout button
-   const createCheckoutSession = async () => {
-      const stripe = await stripePromise
+ // Properly include the PDF file path in each item
+//  const itemsWithPdf = items.map((item) => ({
+//    ...item,
+//    pdf: `/pdf/${item.pdf}`, // Assuming the 'pdf' field in each item already includes the file name and extension
+// }));
+// console.log(itemsWithPdf)
 
-      //call the backend ro create a checkout session...
-      const checkoutSession = await axios.post("api/create-checkout-session", {
+   const config = {
+      reference: (new Date()).getTime().toString(),
+      email: session?.user.email,
+      amount: total * 100,
+      publicKey: 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6',
+      metadata: {
+         // itemsWithPdf
          items: items,
-         email: session.user.email,
-      });
+         email: session?.user.email, 
+      },
+  };
+//   console.log(config)
 
-      //Redirect user/customer to Stripe Checkout
-      const result = await stripe.redirectToCheckout({
-         sessionId: checkoutSession.data.id,
-      })
-      if (result.error) alert(result.error.message)
-   }
+const onSuccess = (reference) => {
+  // Send the payment data to the backend here after successful payment
+  axios
+    .post('/api/webhook', config)
+    .then((response) => {
+      console.log('Payment data sent successfully:', response);
+    })
+    .catch((error) => {
+      console.error('Error sending payment data:', error);
+      // Handle errors as needed (e.g., show an error message)
+    });
+};
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log('closed')
+  }
+
+   const initializePayment = usePaystackPayment(config);
+
    return (
       <div className="bg-gray-200">
          <Header />
@@ -91,9 +127,10 @@ function Checkout() {
                            {/* <Currency quantity={total} currency="NGN" /> */}
                         </span>
                      </h2>
-                     <button
+
+                      <button
                         role="link"
-                        onClick={createCheckoutSession}
+                        onClick={() => initializePayment(onSuccess, onClose)} // Connect the initiatePayment function to the button
                         disabled={!session}
                         className={`button mt-2 ${
                            !session &&
@@ -103,7 +140,11 @@ function Checkout() {
                         {!session
                            ? "Sign in to checkout"
                            : "Proceed to Checkout"}
-                     </button>
+                     </button> 
+                       
+                     {/* <PaystackHookExample /> */}
+
+
                   </>
                )}
             </div>

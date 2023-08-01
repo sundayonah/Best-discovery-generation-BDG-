@@ -67,3 +67,53 @@ export default function Home({ books }) {
 //       },
 //    }
 // }
+
+
+
+
+   // //  checkout.js
+   // //connect this to checkout button
+   // const createCheckoutSession = async () => {
+   //    const stripe = await stripePromise
+
+   //    //call the backend ro create a checkout session...
+   //    const checkoutSession = await axios.post("api/create-checkout-session", {
+   //       items: items,
+   //       email: session.user.email,
+   //    });
+
+   //    //Redirect user/customer to Stripe Checkout
+   //    const result = await stripe.redirectToCheckout({
+   //       sessionId: checkoutSession.data.id,
+   //    })
+   //    if (result.error) alert(result.error.message)
+   // }
+
+   // const createCheckoutSession = async () => {
+   //    const stripe = await stripePromise;
+   //    console.log(stripe)
+  
+   //    // Call the backend to create a checkout session...
+   //    const response = await axios.post("api/create-checkout-session", {
+   //      items: items,
+   //      email: session.user.email,
+   //      payment_method_types: ['ach_credit_transfer'],
+   //    });
+  
+   //    // Extract the session ID from the backend response
+   //    const sessionId = response.data.id;
+  
+   //    // Redirect user/customer to Stripe Checkout
+   //    const result = await stripe.redirectToCheckout({
+   //      sessionId: sessionId,
+   //    });
+  
+   //    if (result.error) {
+   //      alert(result.error.message);
+   //    }
+   //  };
+
+
+
+   // ...
+

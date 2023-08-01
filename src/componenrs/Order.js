@@ -76,7 +76,7 @@ import { useState } from "react";
 function Order({ id, amount, amountShipping, items, timestamp, images, pdf }) {
    const formattedDate = moment(timestamp).format("DD MMM YYYY")
    const [hoveredIndex, setHoveredIndex] = useState(null);
-   console.log(pdf)
+   // console.log(pdf)
 
    // const handleDownload = (event, pdf) => {
    //    event.stopPropagation();
