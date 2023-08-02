@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       secure: true,
       auth: {
         user: 'xhunteq@gmail.com',
-        pass: process.env.GMAIL_PASSWORD,
+        pass: process.env.GMAIL_PASSWORD_FOR_MAC,
       },
     });
 
