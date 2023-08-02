@@ -39,51 +39,51 @@ function Orders({ orders }) {
    )    
 }
 export async function getServerSideProps(context) {
-   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+//    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
-   // Get the user's logged-in credentials
-   const session = await getSession(context)
+//    // Get the user's logged-in credentials
+//    const session = await getSession(context)
 
-   if (!session) {
-      return {
-         props: {
-            orders: [],
-         },
-      }
-   }
-   // Retrieve orders from Firebase DB
-   const firebaseOrders = await db
-      .collection("users")
-      .doc(session.user.email)
-      .collection("orders")
-      .orderBy("timestamp", "desc")
-      .get()
+//    if (!session) {
+//       return {
+//          props: {
+//             orders: [],
+//          },
+//       }
+//    }
+//    // Retrieve orders from Firebase DB
+//    const firebaseOrders = await db
+//       .collection("users")
+//       .doc(session.user.email)
+//       .collection("orders")
+//       .orderBy("timestamp", "desc")
+//       .get()
 
-   // Process orders
-   const orders = await Promise.all(
-      firebaseOrders.docs.map(async (order) => {
-         const stripeOrder = await stripe.checkout.sessions.retrieve(order.id, {
-            expand: ["line_items"],
-         })
+//    // Process orders
+//    const orders = await Promise.all(
+//       firebaseOrders.docs.map(async (order) => {
+//          const stripeOrder = await stripe.checkout.sessions.retrieve(order.id, {
+//             expand: ["line_items"],
+//          })
 
-         // const pdf = stripeOrder.metadata.pdf || null; // Set pdf to null if not available
+//          // const pdf = stripeOrder.metadata.pdf || null; // Set pdf to null if not available
               
-         return {
-            id: order.id,
-            amount: stripeOrder.amount_total,
-            amountShipping: stripeOrder.total_details.amount_shipping,
-            images: JSON.parse(stripeOrder.metadata.images),
-            timestamp: order.data().timestamp.toDate().getTime(), // Convert Firebase Timestamp to Unix timestamp
-            items: stripeOrder.line_items.data,
-            pdf: stripeOrder.metadata.pdf || null,
-         }
-      })
-      )
+//          return {
+//             id: order.id,
+//             amount: stripeOrder.amount_total,
+//             amountShipping: stripeOrder.total_details.amount_shipping,
+//             images: JSON.parse(stripeOrder.metadata.images),
+//             timestamp: order.data().timestamp.toDate().getTime(), // Convert Firebase Timestamp to Unix timestamp
+//             items: stripeOrder.line_items.data,
+//             pdf: stripeOrder.metadata.pdf || null,
+//          }
+//       })
+//       )
 
-   return {
-      props: {
-         orders,
-      },
-   }
+//    return {
+//       props: {
+//          orders,
+//       },
+//    }
 }
 export default Orders
