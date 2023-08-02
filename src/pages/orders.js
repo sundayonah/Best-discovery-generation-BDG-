@@ -38,7 +38,7 @@ function Orders({ orders }) {
       </div>
    )    
 }
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
 //    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 //    // Get the user's logged-in credentials
@@ -85,5 +85,5 @@ export async function getServerSideProps(context) {
 //          orders,
 //       },
 //    }
-}
+// }
 export default Orders

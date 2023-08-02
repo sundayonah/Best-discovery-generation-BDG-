@@ -10,7 +10,7 @@ export default function handler(req, res) {
             price: 800,
             description: "Description for Book 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/adventurreToaGloriousDestiny.jpg`,
-            pdf: "/pdf/Fasting-and-Prayer.pdf",
+            pdf: "/pdf/Adventure-to-a-Glorious-Destiny.pdf",
          },
          {
             id: 2,
@@ -20,7 +20,7 @@ export default function handler(req, res) {
             about love in the brotherhood and the Christendom at large. This book clearly shows you what the true 
             love of God is and what it offers both to a believer and unbeliever.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
-            pdf: "/pdf/front-end.pdf",
+            pdf: "/pdf/Are-We-Still-Brethren.pdf",
        
          },
          {
@@ -38,7 +38,7 @@ export default function handler(req, res) {
             This book is a clarion call for everyone to think more and talk less.
             Remember, “ as a man thinketh in his heart, so is he” ( prov. 23:7)`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
-            // pdf: '/pdf/Fasting-and-Prayer.pdf',
+            pdf: '/pdf/BE-THINK-ACTIVE-NOT-A-TALKATIVE.pdf',
          },
          {
             id: 4,
@@ -56,7 +56,7 @@ export default function handler(req, res) {
             error you corrected brings liberation to you and your family. This is the book that answers all your
              questions as regards to the deed of your fathers and the aftermath effect.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/correctTheFoundation.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            // pdf: '/pdf/BE-THINK-ACTIVE-NOT-A-TALKATIVE.pdf',
          },
          {
             id: 5,
@@ -72,7 +72,7 @@ export default function handler(req, res) {
             Until you access the finishing grace you will be disgrace in the process.`,
             category: "Category 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/keyToAccessingFinishingGrace.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            // pdf: '/pdf/BE-THINK-ACTIVE-NOT-A-TALKATIVE.pdf',
          },
          {
             id: 6,
@@ -88,7 +88,7 @@ export default function handler(req, res) {
             practically tells you what to do to gain victory over the devil cheaply when you choose to stand with God. 
             Remember, choose you  this  whom ye will serve…( Joshua 24:15)`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/Part-TimeChristian.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            pdf: '/pdf/PART-TIME-CHRISTIAN-VERSUS-FULL-TIME-DEVIL.pdf',
          },
          {
             id: 7,
@@ -101,7 +101,7 @@ export default function handler(req, res) {
             to differentiate them. This book clearly identifies these three voices and keys to engage to stop the one
              that leads to destruction and frustration.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/silinceThatStrangeVoice.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            pdf: '/pdf/Silence-That-Strange-Voice.pdf',
          },
          {
             id: 8,
@@ -121,7 +121,7 @@ export default function handler(req, res) {
             studiously digesting the contents of this book, and you will experience the reviving power 
             of God like never before.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/theGloryOfRevival.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            // pdf: '/pdf/Silence-That-Strange-Voice.pdf',
          },
          {
             id: 9,
@@ -133,7 +133,7 @@ export default function handler(req, res) {
              in what they do. You can not be doing one thing the same way and expected a different result. 
              Every chapter in this book unleased the power of transformation.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfCreativity.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            pdf: '/pdf/THE-POWER-OF-CREATIVITY.pdf',
          },
          {
             id: 10,
@@ -146,7 +146,7 @@ export default function handler(req, res) {
             What light can not do is what God cannot do.  Applying the contents of this book puts you on the 
             flight in life and destiny.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfLIght.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            pdf: '/pdf/THE-POWER-OF-LIGHT.pdf',
          },
          {
             id: 11,
@@ -154,7 +154,7 @@ export default function handler(req, res) {
             price: 1000,
             description: "Description for Book 1",
             image: `${process.env.NEXTAUTH_URL}/bookimgs/theThreeDimensionofGodsWill.jpg`,
-            // pdf: `data:application/pdf;base64,${fs.readFileSync(path.join(process.cwd(), 'public', 'bookimgs', 'pdf', 'front-end.pdf')).toString('base64')}`,
+            pdf: "/pdf/The-Three-Dimensions-of-God's-Will.pdf",
          },
          // Add more books as need
       ]
