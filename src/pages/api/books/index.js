@@ -163,8 +163,8 @@ export default function handler(req, res) {
       } 
       else if (req.method === 'POST') {
          // Handle the POST request for payment data
-         const paymentData = req.body;
-         console.log('Received payment data:', paymentData);
+         // const paymentData = req.body;
+         // console.log('Received payment data:', paymentData);
      
          // Perform any additional processing with the payment data here
          // For example, you can save the payment details to a database, update order status, etc.

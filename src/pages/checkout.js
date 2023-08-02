@@ -1,48 +1,21 @@
 import Header from "@/componenrs/Header"
-// import checkOutBanner from "../images/book6.jpg"
 import { useSelector } from "react-redux"
 import { selectItems, selectTotal } from "@/slices/basketSlice"
 import CheckoutBook from "@/componenrs/CheckoutBook"
 
-// import Currency from "react-currency-formatter"
 import { useSession } from "next-auth/react"
 import axios from "axios"
 import Image from "next/image"
-// import { loadStripe } from "@stripe/stripe-js"
 import { FormattedNumber, IntlProvider } from "react-intl"
 import { usePaystackPayment } from "react-paystack"
-// import Paystack from 'paystack';
 
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-
-// const paystack = Paystack.init({ key: process.env.PAYSTACK_PUBLIC_KEY }); // Replace 'YOUR_PUBLIC_KEY' with your actual Paystack public key
 
 const PAYSTACK_PUBLIC_KEY = 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6'
 
-
 function Checkout() {
    const items = useSelector(selectItems)
-
-   console.log(items)
-   console.log(PAYSTACK_PUBLIC_KEY)
-
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
-
-   console.log(session)
-   
-   // const [paystackKey, setPaystackKey] = useState(""); // Set your Paystack public key here
-//    const config = {
-//       reference: (new Date()).getTime().toString(),
-//       email: session?.user.email,
-//       amount: total * 100,
-//       publicKey: 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6',
-//       metadata: {
-//          // itemsWithPdf
-//          items: items,
-//          email: session?.user.email, 
-//       },
-//   };
 
 const config = {
    reference: (new Date()).getTime().toString(),
@@ -58,8 +31,6 @@ const config = {
    },
  };
 
-  console.log(config)
-
 const onSuccess = (reference) => {
    // Send the payment data to the backend here after successful payment
    const paymentData = {
@@ -68,16 +39,16 @@ const onSuccess = (reference) => {
      items: items,
    };
 
-   axios
-   .post('/api/book', paymentData)
-   .then((response) => {
-      console.log('Payment data sent successfully:', response);
+   // axios
+   // .post('/api/book', paymentData)
+   // .then((response) => {
+   //    console.log('Payment data sent successfully:', response);
 
-   }) 
-   .catch((error) => {
-      console.error('Error sending payment data:', error);
-      // Handle errors as needed (e.g., show an error message)
-   });
+   // }) 
+   // .catch((error) => {
+   //    console.error('Error sending payment data:', error);
+   //    // Handle errors as needed (e.g., show an error message)
+   // });
    // If payment data is sent successfully, send the email
    axios
    .post('/api/sendMail', paymentData) // Call the email API route
@@ -88,7 +59,6 @@ const onSuccess = (reference) => {
      console.error('Error sending email:', err);
      // Handle email sending errors here
    });
-   console.log(paymentData)
 };
   // you can call this function anything
   const onClose = () => {

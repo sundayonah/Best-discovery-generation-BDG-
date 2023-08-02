@@ -1,5 +1,3 @@
-// pages/api/sendMail.js
-
 import nodemailer from 'nodemailer';
 import path from 'path';
 
@@ -9,17 +7,10 @@ export default async function handler(req, res) {
   }
 
   try {
-
-
     const { email, items, status } = req.body;
 
     const pdfFilePaths = items.map((item) => item.pdf);
 
-   
-   console.log(email)
-   console.log(pdfFilePaths)
-   console.log(items)
-   console.log(status)
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -38,8 +29,6 @@ export default async function handler(req, res) {
       };
     });
 
-    console.log(attachments)
-
     const info = await transporter.sendMail({
       from: 'xhunteq@gmail.com',
       to: email,
@@ -49,7 +38,6 @@ export default async function handler(req, res) {
       attachments
     });
 
-    console.log(info);
     res.status(200).json({ message: 'Email sent successfully' });
   } catch (error) {
     console.error('Error sending email:', error);
