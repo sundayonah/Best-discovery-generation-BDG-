@@ -24,45 +24,71 @@ function Checkout() {
    const items = useSelector(selectItems)
 
    console.log(items)
-
    console.log(PAYSTACK_PUBLIC_KEY)
 
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
+
+   console.log(session)
    
    // const [paystackKey, setPaystackKey] = useState(""); // Set your Paystack public key here
+//    const config = {
+//       reference: (new Date()).getTime().toString(),
+//       email: session?.user.email,
+//       amount: total * 100,
+//       publicKey: 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6',
+//       metadata: {
+//          // itemsWithPdf
+//          items: items,
+//          email: session?.user.email, 
+//       },
+//   };
 
- // Properly include the PDF file path in each item
-//  const itemsWithPdf = items.map((item) => ({
-//    ...item,
-//    pdf: `/pdf/${item.pdf}`, // Assuming the 'pdf' field in each item already includes the file name and extension
-// }));
-// console.log(itemsWithPdf)
+const config = {
+   reference: (new Date()).getTime().toString(),
+   email: session?.user.email,
+   amount: total * 100,
+   publicKey: PAYSTACK_PUBLIC_KEY,
+   metadata: {
+     items: items.map((item) => ({
+       ...item,
+       pdf: `/pdf/${item.pdf}`, // Assuming the 'pdf' field in each item already includes the file name and extension
+     })),
+     email: session?.user.email,
+   },
+ };
 
-   const config = {
-      reference: (new Date()).getTime().toString(),
-      email: session?.user.email,
-      amount: total * 100,
-      publicKey: 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6',
-      metadata: {
-         // itemsWithPdf
-         items: items,
-         email: session?.user.email, 
-      },
-  };
-//   console.log(config)
+  console.log(config)
 
 const onSuccess = (reference) => {
-  // Send the payment data to the backend here after successful payment
-  axios
-    .post('/api/webhook', config)
-    .then((response) => {
+   // Send the payment data to the backend here after successful payment
+   const paymentData = {
+     reference: reference,
+     email: session?.user.email,
+     items: items,
+   };
+
+   axios
+   .post('/api/book', paymentData)
+   .then((response) => {
       console.log('Payment data sent successfully:', response);
-    })
-    .catch((error) => {
+
+   }) 
+   .catch((error) => {
       console.error('Error sending payment data:', error);
       // Handle errors as needed (e.g., show an error message)
-    });
+   });
+   // If payment data is sent successfully, send the email
+   axios
+   .post('/api/sendMail', paymentData) // Call the email API route
+   .then((res) => {
+     console.log('Email sent successfully:', res);
+   })
+   .catch((err) => {
+     console.error('Error sending email:', err);
+     // Handle email sending errors here
+   });
+   console.log(paymentData)
 };
   // you can call this function anything
   const onClose = () => {

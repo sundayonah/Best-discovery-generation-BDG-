@@ -20,7 +20,8 @@ export default function handler(req, res) {
             about love in the brotherhood and the Christendom at large. This book clearly shows you what the true 
             love of God is and what it offers both to a believer and unbeliever.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
-            pdf: '/pdf/frontend.pdf',            
+            pdf: "/pdf/front-end.pdf",
+       
          },
          {
             id: 3,
@@ -37,7 +38,7 @@ export default function handler(req, res) {
             This book is a clarion call for everyone to think more and talk less.
             Remember, “ as a man thinketh in his heart, so is he” ( prov. 23:7)`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
-            pdf: '/pdf/Fasting-and-Prayer.pdf',
+            // pdf: '/pdf/Fasting-and-Prayer.pdf',
          },
          {
             id: 4,
@@ -159,7 +160,17 @@ export default function handler(req, res) {
       ]
       if (req.method === "GET") {
          res.status(200).json(books)
-      } else {
+      } 
+      else if (req.method === 'POST') {
+         // Handle the POST request for payment data
+         const paymentData = req.body;
+         console.log('Received payment data:', paymentData);
+     
+         // Perform any additional processing with the payment data here
+         // For example, you can save the payment details to a database, update order status, etc.
+     
+         res.status(200).json({ message: 'Payment data received successfully' });
+       } else {
          res.status(405).json({ error: "Method not allowed" })
       }
    } catch (error) {

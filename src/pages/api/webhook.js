@@ -121,6 +121,53 @@ app.use(json());
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
 
+// Send email with PDF attachment
+async function sendEmailWithPDF(email, pdfFilePaths) {
+
+  console.log('Sending email with PDF to:', email);
+  console.log('PDF File Paths:', pdfFilePaths);
+
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail', // e.g., 'gmail', 'yahoo', etc.
+    auth: {
+      user: 'sundayonah94@gmail.com',
+      pass: process.env.GMAIL_PASSWORD,
+    },
+    secure: true,
+  });
+
+  const attachments = pdfFilePaths.map((pdfFilePath) => {
+    const absolutePath = path.join(process.cwd(), 'public', pdfFilePath);
+    return {
+      filename: path.basename(pdfFilePath),
+      path: absolutePath,
+    };
+  });
+
+  const mailOptions = {
+    from: 'sundayonah94@gmail.com',
+    to: email,
+    subject: 'Purchase Confirmation',
+    text: 'Test Test',
+    html: '<h1>Thank you for your purchase! Attached are your purchased books.</h1>',
+    attachments,
+    
+    // attachments: pdfFilePaths.map((pdfFilePath) => ({
+    //   filename: path.basename(pdfFilePath),
+    //   path: path.join(process.cwd(), 'public', pdfFilePath), // Adjust the path to the actual location of the PDFs
+    // })),
+  };
+  console.log(mailOptions)
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
+
+
 function verify(eventData, signature) {
   const hmac = crypto.createHmac('sha512', PAYSTACK_SECRET_KEY);
   const expectedSignature = hmac.update(JSON.stringify(eventData)).digest('hex');
@@ -134,44 +181,7 @@ function verify(eventData, signature) {
   return isSignatureValid;
 }
 
-
-
-// Send email with PDF attachment
-async function sendEmailWithPDF(email, pdfFilePaths) {
-
-  // const { items, email } = req.body
-
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail', // e.g., 'gmail', 'yahoo', etc.
-    auth: {
-      user: 'sundayonah94@gmail.com',
-      pass: process.env.GMAIL_PASSWORD,
-    },
-    secure: true,
-  });
-
-  const mailOptions = {
-    from: 'sundayonah94@gmail.com',
-    to: email,
-    subject: 'Purchase Confirmation',
-    html: '<h1>Thank you for your purchase! Attached are your purchased books.</h1>',
-    attachments: pdfFilePaths.map((pdfFilePath) => ({
-      filename: path.basename(pdfFilePath),
-      path: path.join(process.cwd(), 'public', pdfFilePath), // Adjust the path to the actual location of the PDFs
-    })),
-  };
-  console.log(mailOptions)
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully');
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
-
 // webhook.js
-
 // ... (other imports and code)
 
 export default async function handler(req, res) {
@@ -200,6 +210,8 @@ export default async function handler(req, res) {
       // Extract the required data from metadata
       const { items, email } = eventData.metadata;
       const pdfFilePaths = items.map((item) => item.pdf);
+
+      console.log('Order ID (Reference):', eventData.data.reference);
 
       console.log('Items:', items);
       console.log('Recipient Email:', email);
