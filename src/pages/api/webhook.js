@@ -64,7 +64,6 @@ function verify(eventData, signature) {
   return isSignatureValid;
 }
 
-// ... your existing imports
 
 export default async function handler(req, res) {
   try {
@@ -77,23 +76,32 @@ export default async function handler(req, res) {
     console.log(email);
     console.log(items);
     console.log('headers', req.headers);
+    
+    console.log(req.body.event, 'event event event data'); // Remove this line
 
     const signature = req.headers['x-paystack-signature'];
+    console.log(signature)
     if (verify(eventData, signature)) {
       return res.status(400).end(); // Return 400 Bad Request status if signature is not valid
     }
-    
-    if (eventData.event === 'charge.success') {
-      const transactionId = eventData.data.reference; // Get the transaction ID
-      const email = eventData.email; // Get the user's email
+
+    console.log(eventData.reference.status)
+       
+    // Remove the line below since 'event' is not a direct property of 'eventData'
+    // console.log(eventData.event, 'event event event data');
+
+    if (eventData.reference.status === 'success') { // Access reference.status to check if it's successful
+      const transactionId = eventData.reference.transaction; // Get the transaction ID
+      const userEmail = eventData.email; // Get the user's email
+      console.log(userEmail);
     
       // Store the purchased items in Firestore under the user's email as a subcollection
-      const userRef = db.collection('users').doc(email);
+      const userRef = db.collection('users').doc(userEmail);
       const ordersRef = userRef.collection('orders');
     
       // Create a new order document with the transaction ID as the document ID
       ordersRef.doc(transactionId).set({
-        reference: eventData.reference,
+        reference: eventData.reference.reference,
         timestamp: new Date(),
         items: eventData.items,
       })
@@ -108,12 +116,12 @@ export default async function handler(req, res) {
       return res.status(200).end();
     }
 
-
   } catch (error) {
     console.error('Error processing webhook:', error);
     return res.status(500).end();
   }
 }
+
 
 
 // export default async function handler(req, res) {
@@ -174,4 +182,8 @@ export default async function handler(req, res) {
 //     return res.status(500).end();
 //   }
 // }
+
+
+//real webhook from sunny
+
 
