@@ -10,15 +10,25 @@ function Orders({ orders }) {
    const { data: session } = useSession()
 
    const [purchasedBooks, setPurchasedBooks] = useState([]);
-
+   //sample
    useEffect(() => {
-     // Retrieve the purchased book details from session storage
-     const storedBooks = sessionStorage.getItem('purchasedBooks');
-     if (storedBooks) {
-       setPurchasedBooks(JSON.parse(storedBooks));
-     }
-     console.log(storedBooks)
-   }, []);
+      if (session) {
+        // Fetch the user's orders from Firestore using the user's email
+        const userRef = db.collection('users').doc(session.user.email);
+        const ordersRef = userRef.collection('orders');
+  
+        // Listen for changes to the user's orders in Firestore
+        const unsubscribe = ordersRef.onSnapshot((snapshot) => {
+          const ordersData = [];
+          snapshot.forEach((doc) => {
+            ordersData.push({ id: doc.id, ...doc.data() });
+          });
+          setPurchasedBooks(ordersData);
+        });
+  
+        return () => unsubscribe();
+      }
+    }, [session]);
  
    return (
       <div>
@@ -34,8 +44,8 @@ function Orders({ orders }) {
                <h2>Please sign in to see your orders</h2>
             )}
             <div className="mt-5 space-y-4">
-               {orders?.map(
-                  ({id, amount, amountShipping, items, timestamp, images, pdf}) => (
+               {purchasedBooks?.map(
+                  ({id, amount, amountShipping, items, timestamp, images}) => (
                   <Order
                      key={id}
                      id={id}
@@ -44,7 +54,6 @@ function Orders({ orders }) {
                      items={items}
                      timestamp={timestamp}
                      images={images}
-                     pdf={pdf}
                   />
                ))}
             </div>

@@ -54,7 +54,6 @@ app.use(json());
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
-
 function verify(eventData, signature) {
   const hmac = crypto.createHmac('sha512', PAYSTACK_SECRET_KEY);
   const expectedSignature = hmac.update(JSON.stringify(eventData)).digest('hex');
@@ -65,6 +64,7 @@ function verify(eventData, signature) {
   return isSignatureValid;
 }
 
+// ... your existing imports
 
 export default async function handler(req, res) {
   try {
@@ -76,52 +76,102 @@ export default async function handler(req, res) {
     console.log(reference);
     console.log(email);
     console.log(items);
-    console.log('headers', req.headers)
+    console.log('headers', req.headers);
 
     const signature = req.headers['x-paystack-signature'];
     if (verify(eventData, signature)) {
-      return res.status(400);
+      return res.status(400).end(); // Return 400 Bad Request status if signature is not valid
     }
-
-    if (reference.status === 'success') {
-      const transactionId = eventData.reference.trans; // Get the transaction ID
-      // Process the successful transaction to maybe fund wallet and update your WalletModel
-      console.log(`Transaction ${transactionId} was successful`);
-      // Retrieve the user's orders from your database using the email
-      const userOrdersSnapshot = await db
-        .collection('users')
-        .doc(email)
-        .collection('orders')
-        .orderBy("timestamp", "desc")
-        .get();
-
-        console.log(userOrdersSnapshot)
-
-      // Extract and collect all the book details from the user's orders
-      const allPurchasedBooks = [];
-      userOrdersSnapshot.forEach((orderDoc) => {
-        const itemsInOrder = orderDoc.data().items.map((item) => ({
-          id: item.id,
-          title: item.title,
-          image: item.image,
-          // Add other book details as needed
-        }));
-        console.log(itemsInOrder)
-        allPurchasedBooks.push(...itemsInOrder);
+    
+    if (eventData.event === 'charge.success') {
+      const transactionId = eventData.data.reference; // Get the transaction ID
+      const email = eventData.email; // Get the user's email
+    
+      // Store the purchased items in Firestore under the user's email as a subcollection
+      const userRef = db.collection('users').doc(email);
+      const ordersRef = userRef.collection('orders');
+    
+      // Create a new order document with the transaction ID as the document ID
+      ordersRef.doc(transactionId).set({
+        reference: eventData.reference,
+        timestamp: new Date(),
+        items: eventData.items,
+      })
+      .then(() => {
+        console.log(`Order ${transactionId} saved to Firestore`);
+      })
+      .catch((error) => {
+        console.error('Error saving order to Firestore:', error);
       });
-
-      // Now, 'allPurchasedBooks' contains an array of book details the user has purchased
-      console.log('All Purchased Books:', allPurchasedBooks);
-
-      // You can now process or handle the 'allPurchasedBooks' array as needed
-      // For example, you can save this information in a separate collection, send it in an email, etc.
-
+    
       // Send a response indicating successful processing of the webhook
       return res.status(200).end();
     }
+
+
   } catch (error) {
     console.error('Error processing webhook:', error);
     return res.status(500).end();
   }
 }
+
+
+// export default async function handler(req, res) {
+//   try {
+//     const eventData = req.body;
+//     console.log('Webhook Data:', eventData);
+
+//     const { reference, email, items } = req.body;
+
+//     console.log(reference);
+//     console.log(email);
+//     console.log(items);
+//     console.log('headers', req.headers)
+
+//     const signature = req.headers['x-paystack-signature'];
+//     if (verify(eventData, signature)) {
+//       return res.status(400);
+//     }
+
+//     if (reference.status === 'success') {
+//       const transactionId = eventData.reference.trans; // Get the transaction ID
+//       // Process the successful transaction to maybe fund wallet and update your WalletModel
+//       console.log(`Transaction ${transactionId} was successful`);
+//       // Retrieve the user's orders from your database using the email
+//       const userOrdersSnapshot = await db
+//         .collection('users')
+//         .doc(email)
+//         .collection('orders')
+//         .orderBy("timestamp", "desc")
+//         .get();
+
+//         console.log(userOrdersSnapshot)
+
+//       // Extract and collect all the book details from the user's orders
+//       const allPurchasedBooks = [];
+//       userOrdersSnapshot.forEach((orderDoc) => {
+//         const itemsInOrder = orderDoc.data().items.map((item) => ({
+//           id: item.id,
+//           title: item.title,
+//           image: item.image,
+//           // Add other book details as needed
+//         }));
+//         console.log(itemsInOrder)
+//         allPurchasedBooks.push(...itemsInOrder);
+//       });
+
+//       // Now, 'allPurchasedBooks' contains an array of book details the user has purchased
+//       console.log('All Purchased Books:', allPurchasedBooks);
+
+//       // You can now process or handle the 'allPurchasedBooks' array as needed
+//       // For example, you can save this information in a separate collection, send it in an email, etc.
+
+//       // Send a response indicating successful processing of the webhook
+//       return res.status(200).end();
+//     }
+//   } catch (error) {
+//     console.error('Error processing webhook:', error);
+//     return res.status(500).end();
+//   }
+// }
 

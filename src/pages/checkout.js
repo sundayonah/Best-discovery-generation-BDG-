@@ -9,6 +9,7 @@ import Image from "next/image"
 import { FormattedNumber, IntlProvider } from "react-intl"
 import { usePaystackPayment } from "react-paystack"
 import { useEffect } from "react"
+import db from "../../firebase"
 
 const PAYSTACK_PUBLIC_KEY = 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6'
 
@@ -63,7 +64,26 @@ const onSuccess = (reference) => {
      console.error('Error sending email:', err);
      // Handle email sending errors here
    });
+
+//sample
+db.collection('users')
+    .doc(session?.user.email)
+    .collection('orders')
+    .doc(reference) // Use the payment reference as the document ID
+    .set({
+      amount: total,
+      items: items,
+      timestamp: firebase.firestore.Timestamp.fromDate(new Date()), // Add the current timestamp
+    })
+    .then(() => {
+      console.log('Order data saved to Firebase.');
+    })
+    .catch((error) => {
+      console.error('Error saving order data:', error);
+      // Handle errors as needed
+    });
 };
+
   // you can call this function anything
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
