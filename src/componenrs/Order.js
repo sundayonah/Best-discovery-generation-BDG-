@@ -3,7 +3,7 @@ import { FormattedNumber, IntlProvider } from "react-intl"
 import { useState } from "react";
 
 function Order({ id, amount, amountShipping, items, timestamp, images }) {
-   const formattedDate = moment(timestamp).format("DD MMM YYYY")
+   const formattedDate = moment(timestamp.toDate()).format("DD MMM YYYY");
    
    return (
       <div className="relative border rounded-md">

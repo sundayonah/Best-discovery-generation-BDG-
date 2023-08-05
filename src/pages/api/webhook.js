@@ -48,6 +48,8 @@ import express from 'express';
 import { json } from 'body-parser';
 import crypto from 'crypto';
 import db from '../../../firebase'; // Import your Firebase Firestore instance or database configuration
+import * as admin from 'firebase'
+
 
 const app = express();
 app.use(json());
@@ -77,7 +79,6 @@ export default async function handler(req, res) {
     console.log(items);
     console.log('headers', req.headers);
     
-    console.log(req.body.event, 'event event event data'); // Remove this line
 
     const signature = req.headers['x-paystack-signature'];
     console.log(signature)
@@ -102,7 +103,7 @@ export default async function handler(req, res) {
       // Create a new order document with the transaction ID as the document ID
       ordersRef.doc(transactionId).set({
         reference: eventData.reference.reference,
-        timestamp: new Date(),
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
         items: eventData.items,
       })
       .then(() => {
@@ -111,6 +112,8 @@ export default async function handler(req, res) {
       .catch((error) => {
         console.error('Error saving order to Firestore:', error);
       });
+      console.log(userRef)
+      console.log(ordersRef)
     
       // Send a response indicating successful processing of the webhook
       return res.status(200).end();
