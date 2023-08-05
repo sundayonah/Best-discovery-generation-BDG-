@@ -8,11 +8,12 @@ import axios from "axios"
 import Image from "next/image"
 import { FormattedNumber, IntlProvider } from "react-intl"
 import { usePaystackPayment } from "react-paystack"
-
+import { useEffect } from "react"
 
 const PAYSTACK_PUBLIC_KEY = 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6'
 
 function Checkout() {
+
    const items = useSelector(selectItems)
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
@@ -31,6 +32,10 @@ const config = {
    },
  };
 
+console.log(session)
+console.log(config)
+console.log(items.length)
+
 const onSuccess = (reference) => {
    // Send the payment data to the backend here after successful payment
    const paymentData = {
@@ -39,16 +44,15 @@ const onSuccess = (reference) => {
      items: items,
    };
 
-   // axios
-   // .post('/api/book', paymentData)
-   // .then((response) => {
-   //    console.log('Payment data sent successfully:', response);
-
-   // }) 
-   // .catch((error) => {
-   //    console.error('Error sending payment data:', error);
-   //    // Handle errors as needed (e.g., show an error message)
-   // });
+   axios
+   .post('/api/webhook', paymentData)
+   .then((response) => {
+      console.log('Fetching:', response);
+   }) 
+   .catch((error) => {
+      console.error('Error sending payment data:', error);
+      // Handle errors as needed (e.g., show an error message)
+   });
    // If payment data is sent successfully, send the email
    axios
    .post('/api/sendMail', paymentData) // Call the email API route

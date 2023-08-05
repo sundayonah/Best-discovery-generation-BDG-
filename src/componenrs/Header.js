@@ -118,7 +118,7 @@ function Header({ books, onSearch }) {
                   className="Link"
                >
                   <p>Returns</p>
-                  <p className="font-extrabold md:text-sm">& Orderss</p>
+                  <p className="font-extrabold md:text-sm">& Orders</p>
                </div>{" "}
                <div
                   onClick={() => router.push("/checkout")}

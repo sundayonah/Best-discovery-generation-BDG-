@@ -3,10 +3,23 @@ import db from "../../firebase"
 import moment from "moment"
 import Order from "@/componenrs/Order"
 import Header from "@/componenrs/Header"
+import { useEffect, useState } from "react"
 // import fs from 'fs';
 
 function Orders({ orders }) {
    const { data: session } = useSession()
+
+   const [purchasedBooks, setPurchasedBooks] = useState([]);
+
+   useEffect(() => {
+     // Retrieve the purchased book details from session storage
+     const storedBooks = sessionStorage.getItem('purchasedBooks');
+     if (storedBooks) {
+       setPurchasedBooks(JSON.parse(storedBooks));
+     }
+     console.log(storedBooks)
+   }, []);
+ 
    return (
       <div>
          <Header />
@@ -15,7 +28,8 @@ function Orders({ orders }) {
                Your Orders
             </h1>
             {session ? (
-               <h2>{orders.length} Orders</h2>
+               // <h2>{orders.length} Orders</h2>
+               <h2> Orders</h2>
             ) : (
                <h2>Please sign in to see your orders</h2>
             )}
@@ -39,7 +53,7 @@ function Orders({ orders }) {
    )    
 }
 // export async function getServerSideProps(context) {
-//    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+//    const paystack = require("react-paystack")(process.env.PAYSTACK_SECRET_KEY)
 
 //    // Get the user's logged-in credentials
 //    const session = await getSession(context)
@@ -51,6 +65,10 @@ function Orders({ orders }) {
 //          },
 //       }
 //    }
+
+//    console.log(session)
+//    console.log(paystack)
+
 //    // Retrieve orders from Firebase DB
 //    const firebaseOrders = await db
 //       .collection("users")
@@ -59,23 +77,26 @@ function Orders({ orders }) {
 //       .orderBy("timestamp", "desc")
 //       .get()
 
+//       console.log(firebaseOrders)
+
 //    // Process orders
 //    const orders = await Promise.all(
 //       firebaseOrders.docs.map(async (order) => {
-//          const stripeOrder = await stripe.checkout.sessions.retrieve(order.id, {
+//          const patstackOrder = await paystack.checkout.sessions.retrieve(order.id, {
 //             expand: ["line_items"],
 //          })
 
-//          // const pdf = stripeOrder.metadata.pdf || null; // Set pdf to null if not available
+//          console.log(orders)
+
+//          // const pdf = patstackOrder.metadata.pdf || null; // Set pdf to null if not available
               
 //          return {
 //             id: order.id,
-//             amount: stripeOrder.amount_total,
-//             amountShipping: stripeOrder.total_details.amount_shipping,
-//             images: JSON.parse(stripeOrder.metadata.images),
+//             amount: patstackOrder.amount_total,
+//             amountShipping: patstackOrder.total_details.amount_shipping,
+//             images: JSON.parse(patstackOrder.metadata.images),
 //             timestamp: order.data().timestamp.toDate().getTime(), // Convert Firebase Timestamp to Unix timestamp
-//             items: stripeOrder.line_items.data,
-//             pdf: stripeOrder.metadata.pdf || null,
+//             items: patstackOrder.line_items.data,
 //          }
 //       })
 //       )

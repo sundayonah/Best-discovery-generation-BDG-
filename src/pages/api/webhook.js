@@ -1,9 +1,53 @@
+// import express from 'express';
+// import { json } from 'body-parser';
+// import crypto from 'crypto';
+
+// const app = express();
+// app.use(json());
+
+// const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
+
+// function verify(eventData, signature) {
+//   const hmac = crypto.createHmac('sha512', PAYSTACK_SECRET_KEY);
+//   const expectedSignature = hmac.update(JSON.stringify(eventData)).digest('hex');
+//   const isSignatureValid = expectedSignature === signature;
+//   console.log('Is Signature Valid:', isSignatureValid);
+
+//   return isSignatureValid;
+// }
+
+// export default async function handler(req, res) {
+//   try {
+//   const eventData = req.body;
+//   console.log(eventData);
+
+//   const { reference, email, items } = req.body;
+  
+//    console.log(reference)
+//    console.log(email)
+//    console.log(items)
+
+//     const signature = req.headers['x-paystack-signature'];
+//     if (!verify(eventData, signature)) {
+//       return res.status(400);
+//     }
+  
+//     if (eventData.event === 'charge.success') {
+//       const transactionId = eventData.data.id;
+//       // Process the successful transaction to maybe fund wallet and update your WalletModel
+//       console.log(`Transaction ${transactionId} was successful`);
+//     }
+//   } catch (error) {
+//     console.error('Error processing webhook:', error);
+//     return res.status(500).end();
+//   }
+// }
+
+
 import express from 'express';
 import { json } from 'body-parser';
-import nodemailer from 'nodemailer';
-import fs from 'fs';
-import path from 'path';
 import crypto from 'crypto';
+import db from '../../../firebase'; // Import your Firebase Firestore instance or database configuration
 
 const app = express();
 app.use(json());
@@ -11,113 +55,68 @@ app.use(json());
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
 
-// Send email with PDF attachment
-async function sendEmailWithPDF(email, pdfFilePaths) {
-
-  console.log('Sending email with PDF to:', email);
-  console.log('PDF File Paths:', pdfFilePaths);
-
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail', // e.g., 'gmail', 'yahoo', etc.
-    auth: {
-      user: 'sundayonah94@gmail.com',
-      pass: process.env.GMAIL_PASSWORD,
-    },
-    secure: true,
-  });
-
-  const attachments = pdfFilePaths.map((pdfFilePath) => {
-    const absolutePath = path.join(process.cwd(), 'public', pdfFilePath);
-    return {
-      filename: path.basename(pdfFilePath),
-      path: absolutePath,
-    };
-  });
-
-  const mailOptions = {
-    from: 'sundayonah94@gmail.com',
-    to: email,
-    subject: 'Purchase Confirmation',
-    text: 'Test Test',
-    html: '<h1>Thank you for your purchase! Attached are your purchased books.</h1>',
-    attachments,
-    
-    // attachments: pdfFilePaths.map((pdfFilePath) => ({
-    //   filename: path.basename(pdfFilePath),
-    //   path: path.join(process.cwd(), 'public', pdfFilePath), // Adjust the path to the actual location of the PDFs
-    // })),
-  };
-  console.log(mailOptions)
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully');
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
-
-
 function verify(eventData, signature) {
   const hmac = crypto.createHmac('sha512', PAYSTACK_SECRET_KEY);
   const expectedSignature = hmac.update(JSON.stringify(eventData)).digest('hex');
-
-  console.log('Received Signature:', signature);
   console.log('Expected Signature:', expectedSignature);
-
+  console.log('Provided Signature:', signature);
   const isSignatureValid = expectedSignature === signature;
   console.log('Is Signature Valid:', isSignatureValid);
-
   return isSignatureValid;
 }
 
-// webhook.js
-// ... (other imports and code)
 
 export default async function handler(req, res) {
   try {
-    if (req.method !== 'POST') {
-      return res.status(405).end(); // Method Not Allowed
-    }
+    const eventData = req.body;
+    console.log('Webhook Data:', eventData);
+
+    const { reference, email, items } = req.body;
+
+    console.log(reference);
+    console.log(email);
+    console.log(items);
+    console.log('headers', req.headers)
 
     const signature = req.headers['x-paystack-signature'];
-
-    const eventData = req.body;
-
-    console.log(signature)
-    console.log('Received Paystack Event Data:', eventData);
-    console.log(req.body)
-
-    if (!verify(eventData, signature)) {
-      console.log('Webhook Signature Verification Failed');
+    if (verify(eventData, signature)) {
       return res.status(400);
     }
 
-    if (eventData.event === 'charge.success') {
-      const transactionId = eventData.data.id;
+    if (reference.status === 'success') {
+      const transactionId = eventData.reference.trans; // Get the transaction ID
+      // Process the successful transaction to maybe fund wallet and update your WalletModel
       console.log(`Transaction ${transactionId} was successful`);
+      // Retrieve the user's orders from your database using the email
+      const userOrdersSnapshot = await db
+        .collection('users')
+        .doc(email)
+        .collection('orders')
+        .orderBy("timestamp", "desc")
+        .get();
 
-      // Extract the required data from metadata
-      const { items, email } = eventData.metadata;
-      const pdfFilePaths = items.map((item) => item.pdf);
+        console.log(userOrdersSnapshot)
 
-      console.log('Order ID (Reference):', eventData.data.reference);
+      // Extract and collect all the book details from the user's orders
+      const allPurchasedBooks = [];
+      userOrdersSnapshot.forEach((orderDoc) => {
+        const itemsInOrder = orderDoc.data().items.map((item) => ({
+          id: item.id,
+          title: item.title,
+          image: item.image,
+          // Add other book details as needed
+        }));
+        console.log(itemsInOrder)
+        allPurchasedBooks.push(...itemsInOrder);
+      });
 
-      console.log('Items:', items);
-      console.log('Recipient Email:', email);
-      console.log('PDF File Paths:', pdfFilePaths);
+      // Now, 'allPurchasedBooks' contains an array of book details the user has purchased
+      console.log('All Purchased Books:', allPurchasedBooks);
 
-      try {
-        await sendEmailWithPDF(email, pdfFilePaths);
-        console.log('Email sent successfully');
-      } catch (error) {
-        console.error('Error sending email:', error);
-        return res.status(500).end();
-      }
+      // You can now process or handle the 'allPurchasedBooks' array as needed
+      // For example, you can save this information in a separate collection, send it in an email, etc.
 
-      return res.status(200).end();
-    } else {
-      console.log('Received Paystack Event:', eventData.event);
+      // Send a response indicating successful processing of the webhook
       return res.status(200).end();
     }
   } catch (error) {
@@ -125,3 +124,4 @@ export default async function handler(req, res) {
     return res.status(500).end();
   }
 }
+
