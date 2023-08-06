@@ -2,7 +2,7 @@ import moment from "moment"
 import { FormattedNumber, IntlProvider } from "react-intl"
 import { useState } from "react";
 
-function Order({ id, amount, amountShipping, items, timestamp, images }) {
+function Order({ id, amount, amountShipping, items, timestamp, images = []  }) {
    const formattedDate = moment(timestamp.toDate()).format("DD MMM YYYY");
    
    return (
@@ -18,7 +18,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                <p>
                   <IntlProvider locale="en-US">
                      <FormattedNumber
-                        value={amount}
+                        value={amount / 100}
                         style="currency"
                         currency="NGN"
                      />
@@ -36,8 +36,8 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
          </div>
          <div className="p-5 sm:p-10">
          <div className='flex space-x-6 overflow-x-auto'>
-                    {images?.map((image) =>
-                        <img src={image} alt="" className='h-20 object-contain sm:h-32' />
+                    {images?.map((image, index) =>
+                        <img key={index} src={image} alt="" className='h-20 object-contain sm:h-32' />
                     )}
                 </div>
          </div>

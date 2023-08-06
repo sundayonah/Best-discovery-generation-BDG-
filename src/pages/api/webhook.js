@@ -2,8 +2,8 @@
 // import { json } from 'body-parser';
 // import crypto from 'crypto';
 
-// const app = express();
-// app.use(json());
+// const appe = express();
+// appe.use(json());
 
 // const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
@@ -51,8 +51,8 @@ import db from '../../../firebase'; // Import your Firebase Firestore instance o
 import * as admin from 'firebase'
 
 
-const app = express();
-app.use(json());
+const appe = express();
+appe.use(json());
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
@@ -67,6 +67,14 @@ function verify(eventData, signature) {
 }
 
 
+const app = !admin.apps.length
+   ? admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+   })
+   : admin.app();
+
+   console.log(app)
+
 export default async function handler(req, res) {
   try {
     const eventData = req.body;
@@ -74,10 +82,10 @@ export default async function handler(req, res) {
 
     const { reference, email, items } = req.body;
 
-    console.log(reference);
-    console.log(email);
-    console.log(items);
-    console.log('headers', req.headers);
+    // console.log(reference);
+    // console.log(email);
+    // console.log(items);
+    // console.log('headers', req.headers);
     
 
     const signature = req.headers['x-paystack-signature'];
@@ -85,6 +93,8 @@ export default async function handler(req, res) {
     if (verify(eventData, signature)) {
       return res.status(400).end(); // Return 400 Bad Request status if signature is not valid
     }
+
+  
 
     console.log(eventData.reference.status)
        
@@ -95,6 +105,15 @@ export default async function handler(req, res) {
       const transactionId = eventData.reference.transaction; // Get the transaction ID
       const userEmail = eventData.email; // Get the user's email
       console.log(userEmail);
+      // console.log(eventData.metadata)
+      // console.log(eventData.items.image)
+
+
+      // Destructure image and price from the items array and add them individually
+      const itemsWithImageAndPrice = items.map(item => {
+        const { image, price, ...rest } = item;
+        return { ...rest, image, price };
+      });
     
       // Store the purchased items in Firestore under the user's email as a subcollection
       const userRef = db.collection('users').doc(userEmail);
@@ -104,16 +123,31 @@ export default async function handler(req, res) {
       ordersRef.doc(transactionId).set({
         reference: eventData.reference.reference,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
-        items: eventData.items,
+        image: itemsWithImageAndPrice.map(item => item.image),
+        price: itemsWithImageAndPrice.map(item => item.price),
+        items: itemsWithImageAndPrice,
+        // items: eventData.items,
       })
+
+      // app.firestore()
+      // .collection('users')
+      // .doc(userEmail)
+      // .collection('orders')
+      // .doc(transactionId)
+      // .set({
+      //   amount: eventData.price / 100, // Assuming eventData.amount is in cents
+      //   // amount_shipping: eventData.total_details.amount_shipping / 100, // Assuming amount_shipping is in cents
+      //   // images: JSON.parse(eventData.items.image),
+      //   // images: image,
+      //   timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      //   // Add other relevant order details here if needed
+      // })
       .then(() => {
         console.log(`Order ${transactionId} saved to Firestore`);
       })
       .catch((error) => {
         console.error('Error saving order to Firestore:', error);
       });
-      console.log(userRef)
-      console.log(ordersRef)
     
       // Send a response indicating successful processing of the webhook
       return res.status(200).end();

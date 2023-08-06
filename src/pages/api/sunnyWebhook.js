@@ -25,7 +25,7 @@ const app = !admin.apps.length
     .collection('orders')
     .doc(session.id)
     .set({
-        amoount: session.amount_total / 100,
+        amount: session.amount_total / 100,
         amount_shipping: session.total_details.amoount_shipping / 100,
         images: JSON.parse(session.metadata.images),
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
