@@ -33,17 +33,15 @@ const config = {
    },
  };
 
-console.log(session)
-console.log(config)
-console.log(items.length)
-
 const onSuccess = (reference) => {
    // Send the payment data to the backend here after successful payment
    const paymentData = {
      reference: reference,
      email: session?.user.email,
+     amount: total * 100,
      items: items,
    };
+   
 
    axios
    .post('/api/webhook', paymentData)

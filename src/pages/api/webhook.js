@@ -66,7 +66,6 @@ function verify(eventData, signature) {
   return isSignatureValid;
 }
 
-
 const app = !admin.apps.length
    ? admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -82,52 +81,40 @@ export default async function handler(req, res) {
 
     const { reference, email, items } = req.body;
 
-    // console.log(reference);
-    // console.log(email);
-    // console.log(items);
-    // console.log('headers', req.headers);
-    
-
     const signature = req.headers['x-paystack-signature'];
     console.log(signature)
     if (verify(eventData, signature)) {
-      return res.status(400).end(); // Return 400 Bad Request status if signature is not valid
+      return res.status(400).end(); 
     }
 
-  
 
-    console.log(eventData.reference.status)
-       
-    // Remove the line below since 'event' is not a direct property of 'eventData'
-    // console.log(eventData.event, 'event event event data');
-
-    if (eventData.reference.status === 'success') { // Access reference.status to check if it's successful
-      const transactionId = eventData.reference.transaction; // Get the transaction ID
-      const userEmail = eventData.email; // Get the user's email
+    if (eventData.reference.status === 'success') { 
+      const transactionId = eventData.reference.transaction;
+      const userEmail = eventData.email; 
       console.log(userEmail);
-      // console.log(eventData.metadata)
-      // console.log(eventData.items.image)
+      console.log(eventData.amount)
+      const images = eventData.items.map((item) => item.image);
+      console.log(images)
 
+      
 
-      // Destructure image and price from the items array and add them individually
-      const itemsWithImageAndPrice = items.map(item => {
-        const { image, price, ...rest } = item;
-        return { ...rest, image, price };
-      });
+          
+      //  const {image, price, } = items;
     
-      // Store the purchased items in Firestore under the user's email as a subcollection
       const userRef = db.collection('users').doc(userEmail);
       const ordersRef = userRef.collection('orders');
     
-      // Create a new order document with the transaction ID as the document ID
-      ordersRef.doc(transactionId).set({
+      ordersRef
+       .doc(transactionId)
+       .set({
         reference: eventData.reference.reference,
+        amount: eventData.amount / 100,
+        images: images,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
-        image: itemsWithImageAndPrice.map(item => item.image),
-        price: itemsWithImageAndPrice.map(item => item.price),
-        items: itemsWithImageAndPrice,
         // items: eventData.items,
       })
+
+      console.log(ordersRef)
 
       // app.firestore()
       // .collection('users')

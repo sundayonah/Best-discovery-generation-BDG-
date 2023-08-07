@@ -49,8 +49,8 @@ function Orders({ orders }) {
                   <Order
                      key={id}
                      id={id}
-                     amount={amount / 100} //convert to the appropriate currency format.
-                     amountShipping={amountShipping / 100} //convert to the appropriate currency format.
+                     amount={amount} //convert to the appropriate currency format.
+                     amountShipping={amountShipping} //convert to the appropriate currency format.
                      items={items}
                      timestamp={timestamp}
                      images={images}
@@ -61,6 +61,34 @@ function Orders({ orders }) {
       </div>
    )    
 }
+
+// export async function getServerSideProps(context) {
+//    // Fetch the user's orders from Firestore here using the user's email
+//    // For example:
+//    const session = await getSession(context);
+//    const userEmail = session?.user?.email;
+//    const userRef = db.collection('users').doc(userEmail);
+//    const ordersRef = userRef.collection('orders');
+//    const snapshot = await ordersRef.get();
+//    const ordersData = snapshot.docs.map((doc) => doc.data());
+//    const orders = ordersData.map((data) => ({
+//      id: data?.transactionId,
+//      amount: data.amount,
+//      amountShipping: data.amountShipping,
+//      items: data.items,
+//      timestamp: data.timestamp,
+//      images: data.images,
+//    }));
+   
+//    return {
+//      props: {
+//        orders,
+//      },
+//    };
+//  }
+ 
+ 
+
 // export async function getServerSideProps(context) {
 //    const paystack = require("react-paystack")(process.env.PAYSTACK_SECRET_KEY)
 
