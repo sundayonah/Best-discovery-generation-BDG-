@@ -18,8 +18,7 @@ function success() {
                </div>
 
                <p>
-                  Thank you for shopping with us. We'll send a confirmation once
-                  your item has been shipped, if you would like to check the
+                  Thank you for shopping with us. We have send pdf of the books you purchase to your email, if you would like to check the
                   status of your order(s) please press the link below
                </p>
                <button

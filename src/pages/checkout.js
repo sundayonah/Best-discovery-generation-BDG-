@@ -10,14 +10,18 @@ import { FormattedNumber, IntlProvider } from "react-intl"
 import { usePaystackPayment } from "react-paystack"
 import { useEffect } from "react"
 import db from "../../firebase"
+import { useRouter } from "next/router";
+
 
 const PAYSTACK_PUBLIC_KEY = 'pk_test_c3069b65a59ba71ee47844e2797739257cf877c6'
 
-function Checkout() {
 
+function Checkout() {
+   
    const items = useSelector(selectItems)
    const { data: session } = useSession()
    const total = useSelector(selectTotal)
+   const router = useRouter();
 
 const config = {
    reference: (new Date()).getTime().toString(),
@@ -41,12 +45,12 @@ const onSuccess = (reference) => {
      amount: total * 100,
      items: items,
    };
-   
+
 
    axios
    .post('/api/webhook', paymentData)
    .then((response) => {
-      console.log('Fetching:', response);
+      router.push('/success')
    }) 
    .catch((error) => {
       console.error('Error sending payment data:', error);
@@ -56,30 +60,30 @@ const onSuccess = (reference) => {
    axios
    .post('/api/sendMail', paymentData) // Call the email API route
    .then((res) => {
-     console.log('Email sent successfully:', res);
    })
    .catch((err) => {
      console.error('Error sending email:', err);
      // Handle email sending errors here
    });
 
-//sample
-db.collection('users')
-    .doc(session?.user.email)
-    .collection('orders')
-    .doc(reference) // Use the payment reference as the document ID
-    .set({
-      amount: total,
-      items: items,
-      timestamp: firebase.firestore.Timestamp.fromDate(new Date()), // Add the current timestamp
-    })
-    .then(() => {
-      console.log('Order data saved to Firebase.');
-    })
-    .catch((error) => {
-      console.error('Error saving order data:', error);
-      // Handle errors as needed
-    });
+
+// //sample
+// db.collection('users')
+//     .doc(session?.user.email)
+//     .collection('orders')
+//     .doc(reference) // Use the payment reference as the document ID
+//     .set({
+//       amount: total,
+//       items: items,
+//       timestamp: firebase.firestore.Timestamp.fromDate(new Date()), // Add the current timestamp
+//     })
+//     .then(() => {
+//       console.log('Order data saved to Firebase.');
+//     })
+//     .catch((error) => {
+//       console.error('Error saving order data:', error);
+//       // Handle errors as needed
+//     });
 };
 
   // you can call this function anything

@@ -72,12 +72,10 @@ const app = !admin.apps.length
    })
    : admin.app();
 
-   console.log(app)
 
 export default async function handler(req, res) {
   try {
     const eventData = req.body;
-    console.log('Webhook Data:', eventData);
 
     const { reference, email, items } = req.body;
 
@@ -91,15 +89,9 @@ export default async function handler(req, res) {
     if (eventData.reference.status === 'success') { 
       const transactionId = eventData.reference.transaction;
       const userEmail = eventData.email; 
-      console.log(userEmail);
-      console.log(eventData.amount)
+
+      console.log(eventData.items.data)
       const images = eventData.items.map((item) => item.image);
-      console.log(images)
-
-      
-
-          
-      //  const {image, price, } = items;
     
       const userRef = db.collection('users').doc(userEmail);
       const ordersRef = userRef.collection('orders');
@@ -111,11 +103,8 @@ export default async function handler(req, res) {
         amount: eventData.amount / 100,
         images: images,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
-        // items: eventData.items,
+        items: eventData.items,
       })
-
-      console.log(ordersRef)
-
       // app.firestore()
       // .collection('users')
       // .doc(userEmail)

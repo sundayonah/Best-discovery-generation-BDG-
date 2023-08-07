@@ -26,7 +26,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                </p>
             </div>
             <p className="text-sm whitespace-nowrap sm:text-xl self-end flex-1 text-right text-blue-500">
-               {items?.length}
+               {items.length}
                {' '}
                items
             </p>
