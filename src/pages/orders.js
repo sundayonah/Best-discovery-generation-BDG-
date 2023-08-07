@@ -38,18 +38,18 @@ function Orders({ orders }) {
                Your Orders
             </h1>
             {session ? (
-               <h2>{purchasedBooks?.length} Orders</h2>
+               <h2>{purchasedBooks.length} Orders</h2>
             ) : (
                <h2>Please sign in to see your orders</h2>
             )}
             <div className="mt-5 space-y-4">
                {purchasedBooks?.map(
-                  ({id, price, amountShipping, items, timestamp, images}) => (
+                  ({id, amount, amountShipping, items, timestamp, images}) => (
                   <Order
                      key={id}
                      id={id}
-                     price={price} //convert to the appropriate currency format.
-                     amountShipping={amountShipping} //convert to the appropriate currency format.
+                     amount={amount} //convert to the appropriate currency format.
+                     // amountShipping={amountShipping / 100} //convert to the appropriate currency format.
                      items={items}
                      timestamp={timestamp}
                      images={images}
@@ -72,7 +72,7 @@ function Orders({ orders }) {
 //    const ordersData = snapshot.docs.map((doc) => doc.data());
 //    const orders = ordersData.map((data) => ({
 //      id: data?.transactionId,
-//      price: data.price,
+//      amount: data.amount,
 //      amountShipping: data.amountShipping,
 //      items: data.items,
 //      timestamp: data.timestamp,
@@ -128,7 +128,7 @@ function Orders({ orders }) {
               
 //          return {
 //             id: order.id,
-//             price: patstackOrder.amount_total,
+//             amount: patstackOrder.amount_total,
 //             amountShipping: patstackOrder.total_details.amount_shipping,
 //             images: JSON.parse(patstackOrder.metadata.images),
 //             timestamp: order.data().timestamp.toDate().getTime(), // Convert Firebase Timestamp to Unix timestamp
