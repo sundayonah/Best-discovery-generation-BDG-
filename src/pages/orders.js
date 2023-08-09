@@ -10,7 +10,7 @@ function Orders({ orders }) {
    const { data: session } = useSession()
 
    const [purchasedBooks, setPurchasedBooks] = useState([]);
-   //sample
+  
    useEffect(() => {
       if (session) {
         // Fetch the user's orders from Firestore using the user's email
