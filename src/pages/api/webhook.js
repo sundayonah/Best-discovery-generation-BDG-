@@ -59,10 +59,7 @@ const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 function verify(eventData, signature) {
   const hmac = crypto.createHmac('sha512', PAYSTACK_SECRET_KEY);
   const expectedSignature = hmac.update(JSON.stringify(eventData)).digest('hex');
-  console.log('Expected Signature:', expectedSignature);
-  console.log('Provided Signature:', signature);
   const isSignatureValid = expectedSignature === signature;
-  console.log('Is Signature Valid:', isSignatureValid);
   return isSignatureValid;
 }
 
@@ -80,7 +77,6 @@ export default async function handler(req, res) {
     const { reference, email, items } = req.body;
 
     const signature = req.headers['x-paystack-signature'];
-    console.log(signature)
     if (verify(eventData, signature)) {
       return res.status(400).end(); 
     }
@@ -90,7 +86,6 @@ export default async function handler(req, res) {
       const transactionId = eventData.reference.transaction;
       const userEmail = eventData.email; 
 
-      console.log(eventData.items.data)
       const images = eventData.items.map((item) => item.image);
     
       const userRef = db.collection('users').doc(userEmail);
@@ -105,21 +100,7 @@ export default async function handler(req, res) {
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
         items: eventData.items,
       })
-      // app.firestore()
-      // .collection('users')
-      // .doc(userEmail)
-      // .collection('orders')
-      // .doc(transactionId)
-      // .set({
-      //   amount: eventData.price / 100, // Assuming eventData.amount is in cents
-      //   // amount_shipping: eventData.total_details.amount_shipping / 100, // Assuming amount_shipping is in cents
-      //   // images: JSON.parse(eventData.items.image),
-      //   // images: image,
-      //   timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      //   // Add other relevant order details here if needed
-      // })
       .then(() => {
-        console.log(`Order ${transactionId} saved to Firestore`);
       })
       .catch((error) => {
         console.error('Error saving order to Firestore:', error);

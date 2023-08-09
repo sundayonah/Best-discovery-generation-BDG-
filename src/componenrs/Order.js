@@ -30,9 +30,10 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                {' '}
                items
             </p>
-            <p className="absolute top-2 right-2 w-40 lg:w-72 truncate text-xs whitespace-nowrap">
-              order id: {id}
+            <p className="absolute top-2 right-2 w-40 lg:w-72 text-xs truncate whitespace-nowrap">
+               <span className="float-right">order id: {id}</span>
             </p>
+
          </div>
          <div className="p-5 sm:p-10">
          <div className='flex space-x-6 overflow-x-auto'>

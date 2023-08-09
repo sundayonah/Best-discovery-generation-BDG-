@@ -46,7 +46,6 @@ const onSuccess = (reference) => {
      items: items,
    };
 
-
    axios
    .post('/api/webhook', paymentData)
    .then((response) => {

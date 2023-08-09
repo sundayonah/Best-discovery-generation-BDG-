@@ -23,6 +23,7 @@ export default async function handler(req, res) {
 
     const attachments = pdfFilePaths.map((pdfFilePath) => {
       const absolutePath = path.join(process.cwd(), 'public', pdfFilePath);
+
       return {
         filename: path.basename(pdfFilePath),
         path: absolutePath,
