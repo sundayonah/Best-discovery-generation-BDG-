@@ -17,7 +17,8 @@ export default async function handler(req, res) {
       secure: true,
       auth: {
         user: 'xhunteq@gmail.com',
-        pass: process.env.GMAIL_PASSWORD_FOR_MAC,
+        pass: 'cfbshnafpuvzhpiq'
+        // pass: process.env.GMAIL_PASSWORD_FOR_MAC,
       },
     });
 
@@ -45,4 +46,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Email could not be sent' });
   }
 }
-
