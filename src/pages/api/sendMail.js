@@ -7,21 +7,22 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, items, status } = req.body;
+    const { email, items} = req.body;
 
     const pdfFilePaths = items.map((item) => item.pdf);
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
-      secure: true,
+      secure: false,
+      requireTLS: true,
       auth: {
         user: 'xhunteq@gmail.com',
-        pass: 'cfbshnafpuvzhpiq'
+        pass: 'cfbshnafpuvzhpiq',
         // pass: process.env.GMAIL_PASSWORD_FOR_MAC,
       },
     });
-
+    
     const attachments = pdfFilePaths.map((pdfFilePath) => {
       const absolutePath = path.join(process.cwd(), 'public', pdfFilePath);
       return {
