@@ -23,7 +23,6 @@ export default async function handler(req, res) {
 
     const attachments = pdfFilePaths.map((pdfFilePath) => {
       const absolutePath = path.join(process.cwd(), 'public', pdfFilePath);
-
       return {
         filename: path.basename(pdfFilePath),
         path: absolutePath,
@@ -38,6 +37,7 @@ export default async function handler(req, res) {
       html: '<h1>Thank you for your purchase! Attached are your purchased books.</h1>',
       attachments
     });
+    console.log(info)
 
     res.status(200).json({ message: 'Email sent successfully' });
   } catch (error) {

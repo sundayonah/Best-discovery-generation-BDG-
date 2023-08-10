@@ -31,7 +31,7 @@ function Order({ id, amount, amountShipping, items, timestamp, images }) {
                items
             </p>
             <p className="absolute top-2 right-2 w-40 lg:w-72 text-xs truncate whitespace-nowrap">
-               <span className="float-right">order id: {id}</span>
+               <span className="float-right "> <strong>order id: </strong>{id}</span>
             </p>
 
          </div>
