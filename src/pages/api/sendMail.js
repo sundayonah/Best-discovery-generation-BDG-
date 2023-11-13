@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
 
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).end();
@@ -14,7 +15,7 @@ export default async function handler(req, res) {
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
-      secure: false,
+      secure: true,
       requireTLS: true,
       auth: {
         user: 'xhunteq@gmail.com',
