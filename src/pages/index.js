@@ -19,7 +19,7 @@ export default function Home({ books }) {
    return (
       <div className="bg-gray-300 ">
          <Head>
-            <title>Books</title>
+            <title>Best Discovery Generation</title>
          </Head>
 
          {/* HEADER */}
@@ -42,9 +42,11 @@ export default function Home({ books }) {
 export async function getServerSideProps(content) {
    const session = await getSession(content)
    //Fetch the books from the API
-   const books = await fetch(`${process.env.NEXTAUTH_URL}/api/books`).then((res) => res.json());
+   const books = await fetch(`${process.env.NEXTAUTH_URL}/api/books`).then(
+      (res) => res.json()
+   )
 
-//   console.log(books)
+   //   console.log(books)
 
    // const books = await fetch("http://localhost:3000/api/books").then((res) =>
    //    res.json()
@@ -59,4 +61,4 @@ export async function getServerSideProps(content) {
          session,
       },
    }
-};
+}

@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs")
+const path = require("path")
 
 export default function handler(req, res) {
    try {
@@ -21,7 +21,6 @@ export default function handler(req, res) {
             love of God is and what it offers both to a believer and unbeliever.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/areWeStillBrethren.jpg`,
             pdf: "/pdf/Are-We-Still-Brethren.pdf",
-       
          },
          {
             id: 3,
@@ -38,7 +37,7 @@ export default function handler(req, res) {
             This book is a clarion call for everyone to think more and talk less.
             Remember, “ as a man thinketh in his heart, so is he” ( prov. 23:7)`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/beThink-Active.jpg`,
-            pdf: '/pdf/BE-THINK-ACTIVE-NOT-A-TALKATIVE.pdf',
+            pdf: "/pdf/BE-THINK-ACTIVE-NOT-A-TALKATIVE.pdf",
          },
          {
             id: 4,
@@ -88,7 +87,7 @@ export default function handler(req, res) {
             practically tells you what to do to gain victory over the devil cheaply when you choose to stand with God. 
             Remember, choose you  this  whom ye will serve…( Joshua 24:15)`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/Part-TimeChristian.jpg`,
-            pdf: '/pdf/PART-TIME-CHRISTIAN-VERSUS-FULL-TIME-DEVIL.pdf',
+            pdf: "/pdf/PART-TIME-CHRISTIAN-VERSUS-FULL-TIME-DEVIL.pdf",
          },
          {
             id: 7,
@@ -101,7 +100,7 @@ export default function handler(req, res) {
             to differentiate them. This book clearly identifies these three voices and keys to engage to stop the one
              that leads to destruction and frustration.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/silinceThatStrangeVoice.jpg`,
-            pdf: '/pdf/Silence-That-Strange-Voice.pdf',
+            pdf: "/pdf/Silence-That-Strange-Voice.pdf",
          },
          {
             id: 8,
@@ -133,7 +132,7 @@ export default function handler(req, res) {
              in what they do. You can not be doing one thing the same way and expected a different result. 
              Every chapter in this book unleased the power of transformation.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfCreativity.jpg`,
-            pdf: '/pdf/THE-POWER-OF-CREATIVITY.pdf',
+            pdf: "/pdf/THE-POWER-OF-CREATIVITY.pdf",
          },
          {
             id: 10,
@@ -146,7 +145,7 @@ export default function handler(req, res) {
             What light can not do is what God cannot do.  Applying the contents of this book puts you on the 
             flight in life and destiny.`,
             image: `${process.env.NEXTAUTH_URL}/bookimgs/thePowerOfLIght.jpg`,
-            pdf: '/pdf/THE-POWER-OF-LIGHT.pdf',
+            pdf: "/pdf/THE-POWER-OF-LIGHT.pdf",
          },
          {
             id: 11,
@@ -160,17 +159,16 @@ export default function handler(req, res) {
       ]
       if (req.method === "GET") {
          res.status(200).json(books)
-      } 
-      else if (req.method === 'POST') {
+      } else if (req.method === "POST") {
          // Handle the POST request for payment data
          // const paymentData = req.body;
          // console.log('Received payment data:', paymentData);
-     
+
          // Perform any additional processing with the payment data here
          // For example, you can save the payment details to a database, update order status, etc.
-     
-         res.status(200).json({ message: 'Payment data received successfully' });
-       } else {
+
+         res.status(200).json({ message: "Payment data received successfully" })
+      } else {
          res.status(405).json({ error: "Method not allowed" })
       }
    } catch (error) {
